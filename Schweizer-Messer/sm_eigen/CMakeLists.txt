@@ -1,15 +1,18 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(sm_eigen)
 
+add_compile_options(-w)
+
 find_package(catkin REQUIRED COMPONENTS cmake_modules sm_common sm_random)
+
 include_directories(${catkin_INCLUDE_DIRS})
 find_package(Boost REQUIRED COMPONENTS system serialization)
-find_package(Eigen REQUIRED)
+find_package(Eigen3 REQUIRED)
 
-include_directories(include ${Eigen_INCLUDE_DIRS} ${catkin_INCLUDE_DIRS})
+include_directories(include ${EIGEN3_INCLUDE_DIR} ${catkin_INCLUDE_DIRS})
 
 catkin_package(
-  INCLUDE_DIRS include ${Eigen_INCLUDE_DIRS}
+  INCLUDE_DIRS include ${EIGEN3_INCLUDE_DIR}
   LIBRARIES ${PROJECT_NAME}
   CATKIN_DEPENDS 
   DEPENDS

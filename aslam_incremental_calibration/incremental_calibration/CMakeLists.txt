@@ -1,18 +1,59 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(incremental_calibration)
 
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR}/../cmake/)
+add_definitions(-w)
+SET(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR}/cmake_modules)
 
-find_package(catkin_simple REQUIRED)
-catkin_simple()
+set(CATKIN_PACKAGE_DEPENDENCIES
+  aslam_backend
+  sm_eigen
+)
 
-if(APPLE)
-  set(CMAKE_CXX_FLAGS "-std=c++11")
-else()
-  set(CMAKE_CXX_FLAGS "-std=c++0x")
-endif()
+find_package(catkin REQUIRED
+  COMPONENTS
+    ${CATKIN_PACKAGE_DEPENDENCIES}
+)
 
-cs_add_library(${PROJECT_NAME}
+find_package(Eigen3 REQUIRED)
+find_package(SUITESPARSE REQUIRED)
+find_package(Boost REQUIRED COMPONENTS system thread)
+
+catkin_package(
+  INCLUDE_DIRS
+    include
+  LIBRARIES
+    ${PROJECT_NAME}
+  CATKIN_DEPENDS
+    ${CATKIN_PACKAGE_DEPENDENCIES}
+  DEPENDS
+    SUITESPARSE
+    Boost
+)
+
+if (PKG_CONFIG_FOUND)
+  pkg_check_modules(TBB "tbb")
+  if (TBB_FOUND)
+    add_definitions(
+      ${TBB_CFLAGS}
+      ${TBB_CFLAGS_OTHER}
+    )
+    include_directories(SYSTEM
+      ${TBB_INCLUDE_DIRS}
+    )
+  endif ()
+endif ()
+
+include_directories(
+  include
+  SYSTEM
+    ${catkin_INCLUDE_DIRS}
+    ${EIGEN3_INCLUDE_DIR}
+    ${SUITESPARSE_INCLUDE_DIRS}
+    ${TBB_INCLUDE_DIRS}
+    ${Boost_INCLUDE_DIRS}
+)
+
+add_library(${PROJECT_NAME}
   src/base/Serializable.cpp
   src/base/Timestamp.cpp
   src/base/Condition.cpp
@@ -40,8 +81,12 @@ cs_add_library(${PROJECT_NAME}
   src/algorithms/linalg.cpp
 )
 
-find_package(Boost REQUIRED COMPONENTS system thread)
-target_link_libraries(${PROJECT_NAME} ${Boost_LIBRARIES} ${TBB_LIBRARIES})
+target_link_libraries(${PROJECT_NAME}
+  ${catkin_LIBRARIES}
+  ${SUITESPARSE_LIBRARIES}
+  ${TBB_LIBRARIES}
+  ${Boost_LIBRARIES}
+)
 
 if(CATKIN_ENABLE_TESTING)
 
@@ -56,10 +101,24 @@ if(CATKIN_ENABLE_TESTING)
     test/OptimizationProblemTest.cpp
     test/IncrementalOptimizationProblemTest.cpp
     test/LinearSolverTest.cpp
-    )
-  target_link_libraries(${PROJECT_NAME}_test ${PROJECT_NAME})
+  )
+
+  target_link_libraries(${PROJECT_NAME}_test 
+    ${PROJECT_NAME}
+  )
 
 endif()
 
-cs_install()
-cs_export()
+install(
+  TARGETS
+    ${PROJECT_NAME}
+  ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
+
+install(
+  DIRECTORY
+    include/${PROJECT_NAME}/
+  DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
+)

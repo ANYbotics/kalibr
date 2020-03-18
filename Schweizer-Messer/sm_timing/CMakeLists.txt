@@ -1,7 +1,10 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(sm_timing)
 
+add_compile_options(-w)
+
 find_package(catkin REQUIRED COMPONENTS sm_common sm_random)
+
 include_directories(${catkin_INCLUDE_DIRS})
 find_package(Boost REQUIRED COMPONENTS system)
 
