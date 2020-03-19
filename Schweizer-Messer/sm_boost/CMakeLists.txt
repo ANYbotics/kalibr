@@ -1,7 +1,10 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(sm_boost)
 
+add_compile_options(-w)
+
 find_package(catkin REQUIRED COMPONENTS sm_common)
+
 find_package(Boost REQUIRED COMPONENTS system serialization thread)
 
 catkin_package(

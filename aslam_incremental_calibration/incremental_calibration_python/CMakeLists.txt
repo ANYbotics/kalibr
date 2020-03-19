@@ -1,14 +1,33 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(incremental_calibration_python)
 
-find_package(catkin_simple REQUIRED)
-catkin_simple()
+add_definitions(-std=c++0x)
 
-if(APPLE)
+set(CATKIN_PACKAGE_DEPENDENCIES
+  incremental_calibration
+  numpy_eigen
+  python_module
+)
 
-else()
-  add_definitions(-std=c++0x)
-endif()
+find_package(catkin REQUIRED
+  COMPONENTS
+    ${CATKIN_PACKAGE_DEPENDENCIES}
+)
+
+catkin_package(
+  INCLUDE_DIRS
+    include
+  LIBRARIES
+    ${PROJECT_NAME}
+  CATKIN_DEPENDS
+    ${CATKIN_PACKAGE_DEPENDENCIES}
+)
+
+include_directories(
+  include
+  SYSTEM
+    ${catkin_INCLUDE_DIRS}
+)
 
 add_python_export_library(${PROJECT_NAME} src/incremental_calibration
   src/module.cpp
@@ -17,5 +36,16 @@ add_python_export_library(${PROJECT_NAME} src/incremental_calibration
   src/LinearSolver.cpp
 )
 
-cs_install()
-cs_export()
+install(
+  TARGETS
+    ${PROJECT_NAME}
+  ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
+
+install(
+  DIRECTORY
+    include/${PROJECT_NAME}/
+  DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
+)

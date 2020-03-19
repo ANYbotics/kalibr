@@ -1,19 +1,62 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(aslam_backend)
 
-find_package(catkin_simple REQUIRED)
-catkin_simple()
+add_compile_options(-w)
+SET(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR}/cmake_modules)
 
+set(CATKIN_PACKAGE_DEPENDENCIES
+  sm_boost
+  sm_logging
+  sm_property_tree
+  sm_random
+  sm_timing
+  sparse_block_matrix
+)
+
+find_package(catkin REQUIRED
+  COMPONENTS
+    ${CATKIN_PACKAGE_DEPENDENCIES}
+)
+
+find_package(Eigen3 REQUIRED)
+find_package(SUITESPARSE REQUIRED)
 find_package(Boost REQUIRED COMPONENTS system thread)
 
-include_directories(${Eigen_INCLUDE_DIRS})
+catkin_package(
+  INCLUDE_DIRS
+    include
+  LIBRARIES
+    ${PROJECT_NAME}
+  CATKIN_DEPENDS
+    ${CATKIN_PACKAGE_DEPENDENCIES}
+  DEPENDS
+    SUITESPARSE
+    Boost
+)
 
-#add_definitions( -fPIC -msse2 -mssse3 -march=nocona -Wextra -Winit-self -Woverloaded-virtual -Wnon-virtual-dtor -Wsign-promo -Wno-long-long -std=c++0x -O3)
+if (PKG_CONFIG_FOUND)
+  pkg_check_modules(TBB "tbb")
+  if (TBB_FOUND)
+    add_definitions(
+      ${TBB_CFLAGS}
+      ${TBB_CFLAGS_OTHER}
+    )
+    include_directories(SYSTEM
+      ${TBB_INCLUDE_DIRS}
+    )
+  endif ()
+endif ()
 
-#target_link_libraries(${PROJECT_NAME} ${CHOLMOD_LIBRARIES} ${EXTRA_LIBS}  ${CSPARSE_LIBRARY})
-#rosbuild_link_boost(${PROJECT_NAME} thread system)
+include_directories(
+  include
+  SYSTEM
+    ${catkin_INCLUDE_DIRS}
+    ${EIGEN3_INCLUDE_DIR}
+    ${Boost_INCLUDE_DIRS}
+    ${SUITESPARSE_INCLUDE_DIRS}
+)
 
-cs_add_library(${PROJECT_NAME}
+add_library(${PROJECT_NAME}
   src/MEstimatorPolicies.cpp
   src/JacobianContainer.cpp
   src/DesignVariable.cpp
@@ -46,7 +89,12 @@ cs_add_library(${PROJECT_NAME}
   src/Optimizer2.cpp
 )
 
-target_link_libraries(${PROJECT_NAME} ${Boost_LIBRARIES} ${TBB_LIBRARIES})
+target_link_libraries(${PROJECT_NAME}
+  ${catkin_LIBRARIES}
+  ${Boost_LIBRARIES}
+  ${TBB_LIBRARIES}
+  ${SUITESPARSE_LIBRARIES}
+)
 
 if(CATKIN_ENABLE_TESTING)
 
@@ -64,11 +112,23 @@ if(CATKIN_ENABLE_TESTING)
     test/SparseMatrixTest.cpp
     test/LinearSolverTests.cpp
     test/ErrorTermTests.cpp
-    )
-  target_link_libraries(${PROJECT_NAME}_test ${PROJECT_NAME})
+  )
+  target_link_libraries(${PROJECT_NAME}_test 
+    ${PROJECT_NAME}
+  )
 
 endif()
 
-cs_install()
-cs_export()
+install(
+  TARGETS
+    ${PROJECT_NAME}
+  ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
 
+install(
+  DIRECTORY
+    include/${PROJECT_NAME}/
+  DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
+)

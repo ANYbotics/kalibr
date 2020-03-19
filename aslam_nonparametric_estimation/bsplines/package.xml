@@ -1,4 +1,4 @@
-<package>
+<package format="2">
 <name>bsplines</name>
   <description>
      bsplines
@@ -7,15 +7,14 @@
   <version>0.0.1</version>
   <license>BSD</license>
   <buildtool_depend>catkin</buildtool_depend>
-  <buildtool_depend>catkin_simple</buildtool_depend>
 
-  <build_depend>sm_common</build_depend>
-  <build_depend>sm_timing</build_depend>
-  <build_depend>sm_eigen</build_depend>
-  <build_depend>sm_kinematics</build_depend>
-  <build_depend>sparse_block_matrix</build_depend>
-  <build_depend>eigen_catkin</build_depend>
-  <build_depend>suitesparse</build_depend>
+  <depend>sm_common</depend>
+  <depend>sm_eigen</depend>
+  <depend>sm_kinematics</depend>
+  <depend>sm_timing</depend>
+  <depend>sparse_block_matrix</depend>
+  <depend>eigen</depend>
+  <depend>suitesparse</depend>
 
 </package>
 
