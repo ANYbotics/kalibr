@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(aslam_cv_backend_python)
 
+add_compile_options(-w)
 SET(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR}/cmake_modules)
 
 set(CATKIN_PACKAGE_DEPENDENCIES

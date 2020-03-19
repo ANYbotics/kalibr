@@ -21,6 +21,7 @@ find_package(catkin REQUIRED
     ${CATKIN_PACKAGE_DEPENDENCIES}
 )
 
+find_package(OpenCV REQUIRED)
 find_package(Boost REQUIRED COMPONENTS serialization) 
 
 catkin_package(
@@ -38,6 +39,7 @@ include_directories(
   include
   SYSTEM
     ${catkin_INCLUDE_DIRS}
+    ${OpenCV_INCLUDE_DIRS}
     ${Boost_INCLUDE_DIRS}
 )
 
@@ -69,6 +71,7 @@ add_python_export_library(${PROJECT_NAME} python/aslam_cv
 
 target_link_libraries(${PROJECT_NAME}
   ${catkin_LIBRARIES}
+  ${OpenCV_LIBRARIES}
   ${Boost_LIBRARIES}
 )
 

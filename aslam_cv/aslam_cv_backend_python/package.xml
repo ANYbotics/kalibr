@@ -17,6 +17,7 @@
   <depend>aslam_cv_python</depend>
   <depend>aslam_time</depend>
   <depend>aslam_splines</depend>
+  <depend>libopencv-dev</depend>
   <depend>numpy_eigen</depend>
   <depend>python_module</depend>
   <depend>sm_common</depend>

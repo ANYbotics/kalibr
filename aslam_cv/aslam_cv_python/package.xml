@@ -11,6 +11,7 @@
     <depend>aslam_cv_serialization</depend>
     <depend>aslam_imgproc</depend>
     <depend>aslam_time</depend>
+    <depend>libopencv-dev</depend>
     <depend>python_module</depend>
     <depend>sm_common</depend>
     <depend>sm_eigen</depend>

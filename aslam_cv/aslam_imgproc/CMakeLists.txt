@@ -25,6 +25,7 @@ find_package(catkin REQUIRED
 )
 
 find_package(Eigen3 REQUIRED)
+find_package(OpenCV REQUIRED)
 find_package(Boost REQUIRED COMPONENTS system)
 
 catkin_package(
@@ -42,6 +43,7 @@ include_directories(
   include
   SYSTEM
     ${catkin_INCLUDE_DIRS}
+    ${OpenCV_INCLUDE_DIRS}
     ${EIGEN3_INCLUDE_DIR}
 )
 
@@ -51,6 +53,7 @@ add_library(${PROJECT_NAME}
 
 target_link_libraries(${PROJECT_NAME}
   ${catkin_LIBRARIES}
+  ${OpenCV_LIBRARIES}
   ${Boost_LIBRARIES}
 )
 
