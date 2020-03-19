@@ -1,28 +1,78 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(aslam_cameras_april)
 
-find_package(catkin_simple REQUIRED)
-catkin_simple()
+add_definitions(-DASLAM_USE_ROS)
 
+set(CATKIN_PACKAGE_DEPENDENCIES
+  aslam_cameras
+  ethz_apriltag2
+  numpy_eigen
+  sm_boost
+  sm_common
+  sm_eigen
+  sm_logging
+  sm_python
+)
+
+find_package(catkin REQUIRED
+  COMPONENTS
+    ${CATKIN_PACKAGE_DEPENDENCIES}
+)
+
+find_package(Eigen3 REQUIRED)
 find_package(OpenCV REQUIRED)
-
-ADD_DEFINITIONS(-DASLAM_USE_ROS )
-include_directories(${Eigen_INCLUDE_DIRS})
-
-
-cs_add_library(${PROJECT_NAME} 
-  src/GridCalibrationTargetAprilgrid.cpp
-  )
-
 find_package(Boost REQUIRED COMPONENTS serialization system) 
 
-target_link_libraries(${PROJECT_NAME} ${OpenCV_LIBS} ${Boost_LIBRARIES})
+catkin_package(
+  INCLUDE_DIRS
+    include
+  LIBRARIES
+    ${PROJECT_NAME}
+  CATKIN_DEPENDS
+    ${CATKIN_PACKAGE_DEPENDENCIES}
+  DEPENDS
+    Boost
+    OpenCV
+)
+
+include_directories(
+  include
+  SYSTEM
+    ${catkin_INCLUDE_DIRS}
+    ${EIGEN3_INCLUDE_DIR}
+    ${OpenCV_INCLUDE_DIRS}
+    ${Boost_INCLUDE_DIRS}
+)
+
+
+add_library(${PROJECT_NAME}
+  src/GridCalibrationTargetAprilgrid.cpp
+)
+
+target_link_libraries(${PROJECT_NAME}
+  ${catkin_LIBRARIES}
+  ${EIGEN3_LIBRARIES}
+  ${OpenCV_LIBRARIES}
+  ${Boost_LIBRARIES}
+)
 
 add_python_export_library(${PROJECT_NAME}_python python/aslam_cameras_april
   src/module.cpp
 )
-target_link_libraries(${PROJECT_NAME}_python ${PROJECT_NAME})
+target_link_libraries(${PROJECT_NAME}_python
+  ${PROJECT_NAME}
+)
 
-cs_install()
-cs_export()
+install(
+  TARGETS
+    ${PROJECT_NAME}
+  ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
 
+install(
+  DIRECTORY
+    include/${PROJECT_NAME}/
+  DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
+)

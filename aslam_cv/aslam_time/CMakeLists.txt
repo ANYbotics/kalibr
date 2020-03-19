@@ -1,22 +1,47 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(aslam_time)
 
-find_package(catkin_simple REQUIRED)
-catkin_simple()
+add_compile_options(-w)
+
+find_package(catkin REQUIRED)
 
 find_package(Boost REQUIRED COMPONENTS system)
 
-cs_add_library(${PROJECT_NAME}
-    src/time.cpp
-    src/duration.cpp)
+catkin_package(
+  INCLUDE_DIRS
+    include
+  LIBRARIES
+    ${PROJECT_NAME}
+  DEPENDS
+    Boost
+)
 
-set(OTHER_LIBS)
-if(NOT APPLE)
-  set(OTHER_LIBS rt)
-endif()
+include_directories(
+  include
+  SYSTEM
+    ${catkin_INCLUDE_DIRS}
+    ${Boost_INCLUDE_DIRS}
+    ${rt_INCLUDE_DIRS}
+)
 
-target_link_libraries(${PROJECT_NAME} ${Boost_LIBRARIES} ${OTHER_LIBS})
+add_library(${PROJECT_NAME}
+  src/time.cpp
+  src/duration.cpp
+)
 
-cs_install()
+target_link_libraries(${PROJECT_NAME}
+  ${Boost_LIBRARIES}
+  rt
+)
 
-cs_export()
+install(TARGETS
+    ${PROJECT_NAME}
+  ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
+
+install(DIRECTORY
+    include/${PROJECT_NAME}/
+  DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
+)

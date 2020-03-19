@@ -1,3 +1,13 @@
+# NOTE: This is a fork from the official repository
+
+**The following changes have been applied on top of ETHZ-ASL main development branch:**
+
+* Removed catkin simple and fixed broken dependencies.
+* Removed forks of eigen, opencv and suitesparse from upstream branch.
+* Updated package to be compatible with suitesparse (2020-03-19).
+
+-------------------------------
+
 ![Kalibr](https://raw.githubusercontent.com/wiki/ethz-asl/kalibr/images/kalibr_small.png)
 
 *Ubuntu 14.04+ROS indigo*: [![Build Status](https://jenkins.asl.ethz.ch/buildStatus/icon?job=kalibr_weekly/label=ubuntu-trusty)](https://jenkins.asl.ethz.ch/job/kalibr_weekly/label=ubuntu-trusty/) *Ubuntu 16.04+ROS kinetic*: [![Build Status](https://jenkins.asl.ethz.ch/buildStatus/icon?job=kalibr_weekly/label=ubuntu-trusty)](https://jenkins.asl.ethz.ch/job/kalibr_weekly/label=ubuntu-xenial/)

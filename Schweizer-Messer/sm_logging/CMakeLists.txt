@@ -1,7 +1,10 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(sm_logging)
 
+add_compile_options(-w)
+
 find_package(catkin REQUIRED)
+
 find_package(Boost REQUIRED COMPONENTS system thread regex)
 
 catkin_package(
