@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package format="2">
+  <name>aslam_cameras_april</name>
+  <description>aslam_cameras_april</description>
+  <version>0.0.1</version>
+  <maintainer email="ynava@anybotics.com">Yoshua Nava</maintainer>
+  <maintainer email="gzhou@anybotics.com">Guoxiang Zhou</maintainer>
+  <author>Paul Furgale</author>
+  <license>New BSD</license>
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>aslam_apriltag2</depend>
+  <depend>aslam_cameras</depend>
+  <depend>libopencv-dev</depend>
+  <depend>sm_numpy_eigen</depend>
+  <depend>sm_boost</depend>
+  <depend>sm_common</depend>
+  <depend>sm_eigen</depend>
+  <depend>sm_logging</depend>
+  <depend>sm_python</depend>
+</package>

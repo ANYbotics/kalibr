@@ -1,0 +1,3 @@
+python/aslam_bsplines/libaslam_bsplines.so
+*.pyc
+/LocalBuildType.cmake
