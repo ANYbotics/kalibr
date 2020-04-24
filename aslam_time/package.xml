@@ -6,5 +6,8 @@
     <maintainer email="ynava@anybotics.com">Yoshua Nava</maintainer>
     <maintainer email="gzhou@anybotics.com">Guoxiang Zhou</maintainer>
     <license>New BSD</license>
+
     <buildtool_depend>catkin</buildtool_depend>
+
+    <build_depend>boost</build_depend>
 </package>

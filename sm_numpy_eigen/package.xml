@@ -9,8 +9,10 @@
   <license>New BSD</license>
   <buildtool_depend>catkin</buildtool_depend>
 
+  <build_depend>boost</build_depend>
   <depend>cmake_modules</depend>
   <depend>eigen</depend>
+  <depend>python-dev</depend>
   <depend>sm_python_module</depend>
   
 </package>
