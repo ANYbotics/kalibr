@@ -3,7 +3,14 @@ project(sm_kinematics)
 
 add_compile_options(-w)
 
-find_package(catkin REQUIRED COMPONENTS cmake_modules sm_common sm_eigen sm_boost sm_random)
+find_package(catkin REQUIRED
+  COMPONENTS
+    cmake_modules
+    sm_boost
+    sm_common
+    sm_eigen
+    sm_random
+)
 
 find_package(Boost REQUIRED COMPONENTS system serialization filesystem)
 
@@ -14,9 +21,16 @@ add_definitions(${EIGEN_DEFINITIONS})
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=c++0x")
 
 catkin_package(
-  INCLUDE_DIRS include ${EIGEN3_INCLUDE_DIR}
-  LIBRARIES ${PROJECT_NAME}
-  CATKIN_DEPENDS sm_common sm_eigen sm_boost
+  INCLUDE_DIRS
+    include
+    ${EIGEN3_INCLUDE_DIR}
+  LIBRARIES
+    ${PROJECT_NAME}
+  CATKIN_DEPENDS
+    sm_boost
+    sm_common
+    sm_eigen
+    sm_random
   DEPENDS
     Boost
 )

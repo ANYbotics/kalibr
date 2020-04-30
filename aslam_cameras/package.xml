@@ -12,6 +12,7 @@
   <buildtool_depend>catkin</buildtool_depend>
 
   <depend>aslam_time</depend>
+  <depend>eigen</depend>
   <depend>libopencv-dev</depend>
   <depend>sm_boost</depend>
   <depend>sm_common</depend>

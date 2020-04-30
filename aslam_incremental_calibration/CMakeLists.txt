@@ -21,6 +21,7 @@ find_package(Boost REQUIRED COMPONENTS system thread)
 catkin_package(
   INCLUDE_DIRS
     include
+    ${EIGEN3_INCLUDE_DIR}
   LIBRARIES
     ${PROJECT_NAME}
   CATKIN_DEPENDS

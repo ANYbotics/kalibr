@@ -20,8 +20,11 @@ include_directories("${PROJECT_SOURCE_DIR}/include/sm_numpy_eigen")
 catkin_package(
   INCLUDE_DIRS 
     include
+    ${EIGEN3_INCLUDE_DIR}
   LIBRARIES 
     ${PROJECT_NAME}
+  CATKIN_DEPENDS
+    sm_python_module
   DEPENDS
     Boost
 )

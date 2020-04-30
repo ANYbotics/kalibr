@@ -10,14 +10,15 @@
   <buildtool_depend>catkin</buildtool_depend>
   
   <depend>cmake_modules</depend>
-  <depend>sm_common</depend>
-  <depend>sm_numpy_eigen</depend>
+  <depend>eigen</depend>
   <depend>python-matplotlib</depend>
+  <depend>sm_common</depend>
   <depend>sm_kinematics</depend>
-  <depend>sm_timing</depend>
   <depend>sm_logging</depend>
+  <depend>sm_numpy_eigen</depend>
   <depend>sm_matrix_archive</depend>
   <depend>sm_property_tree</depend>
   <depend>sm_python_module</depend>
+  <depend>sm_timing</depend>
 
 </package>

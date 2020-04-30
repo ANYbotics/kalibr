@@ -11,6 +11,7 @@
 
   <depend>aslam_bsplines</depend>
   <depend>aslam_sparse_block_matrix</depend>
+  <depend>eigen</depend>
   <depend>sm_numpy_eigen</depend>
   <depend>python-scipy</depend>
   <depend>sm_common</depend>

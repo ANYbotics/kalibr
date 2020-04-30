@@ -3,20 +3,31 @@ project(sm_eigen)
 
 add_compile_options(-w)
 
-find_package(catkin REQUIRED COMPONENTS cmake_modules sm_common sm_random)
+find_package(catkin REQUIRED
+  COMPONENTS
+    cmake_modules
+    sm_common
+    sm_random
+)
 
 find_package(Boost REQUIRED COMPONENTS system serialization)
 find_package(Eigen3 REQUIRED)
 
 catkin_package(
-  INCLUDE_DIRS include ${EIGEN3_INCLUDE_DIR}
-  LIBRARIES ${PROJECT_NAME}
-  CATKIN_DEPENDS sm_common sm_random
+  INCLUDE_DIRS
+    include
+    ${EIGEN3_INCLUDE_DIR}
+  LIBRARIES
+    ${PROJECT_NAME}
+  CATKIN_DEPENDS
+    sm_common
+    sm_random
   DEPENDS
     Boost
 )
 
-include_directories(include 
+include_directories(
+  include 
   SYSTEM
     ${catkin_INCLUDE_DIRS}
     ${EIGEN3_INCLUDE_DIR}

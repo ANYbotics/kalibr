@@ -10,6 +10,7 @@
   <buildtool_depend>catkin</buildtool_depend>
 
   <depend>aslam_sparse_block_matrix</depend>
+  <depend>eigen</depend>
   <depend>sm_boost</depend>
   <depend>sm_logging</depend>
   <depend>sm_property_tree</depend>

@@ -3,15 +3,23 @@ project(sm_matrix_archive)
 
 add_compile_options(-w)
 
-find_package(catkin REQUIRED COMPONENTS cmake_modules sm_common)
+find_package(catkin REQUIRED
+  COMPONENTS
+    cmake_modules
+    sm_common
+)
 
 find_package(Boost REQUIRED COMPONENTS system filesystem)
 find_package(Eigen3 REQUIRED)
 
 catkin_package(
-  INCLUDE_DIRS include  ${catkin_INCLUDE_DIRS}
-  LIBRARIES ${PROJECT_NAME}
-  CATKIN_DEPENDS sm_common
+  INCLUDE_DIRS 
+    include
+    ${EIGEN3_INCLUDE_DIR}
+  LIBRARIES
+    ${PROJECT_NAME}
+  CATKIN_DEPENDS
+    sm_common
   DEPENDS
     Boost
 )

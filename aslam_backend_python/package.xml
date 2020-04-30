@@ -12,6 +12,7 @@
   <depend>aslam_backend</depend>
   <depend>aslam_backend_expressions</depend>
   <depend>aslam_sparse_block_matrix</depend>
+  <depend>eigen</depend>
   <depend>sm_numpy_eigen</depend>
   <depend>sm_common</depend>
   <depend>sm_kinematics</depend>

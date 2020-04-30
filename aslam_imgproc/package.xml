@@ -12,6 +12,7 @@
   <!-- List dependencies to system libs and other catkin packages here. -->
   <depend>aslam_cameras</depend>
   <depend>aslam_time</depend>
+  <depend>eigen</depend>
   <depend>libopencv-dev</depend>
   <depend>sm_numpy_eigen</depend>
   <depend>sm_boost</depend>

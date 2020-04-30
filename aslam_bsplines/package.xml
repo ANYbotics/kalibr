@@ -10,11 +10,11 @@
   <buildtool_depend>catkin</buildtool_depend>
 
   <depend>aslam_sparse_block_matrix</depend>
+  <depend>eigen</depend>
   <depend>sm_common</depend>
   <depend>sm_eigen</depend>
   <depend>sm_kinematics</depend>
   <depend>sm_timing</depend>
-  <depend>eigen</depend>
   <depend>suitesparse</depend>
 
 </package>

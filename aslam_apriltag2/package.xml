@@ -10,8 +10,8 @@
   <buildtool_depend>catkin</buildtool_depend>
 
   <depend>cmake_modules</depend>
+  <depend>eigen</depend>
   <depend>libopencv-dev</depend>
   <depend>libv4l-dev</depend>
-  <depend>eigen</depend>
   
 </package>

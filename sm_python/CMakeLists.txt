@@ -3,22 +3,38 @@ project(sm_python)
 
 add_compile_options(-w)
 
-find_package(catkin REQUIRED COMPONENTS cmake_modules sm_common sm_numpy_eigen sm_kinematics 
-                                        sm_timing sm_logging sm_matrix_archive
-                                        sm_property_tree sm_python_module)
+find_package(catkin REQUIRED
+  COMPONENTS
+    cmake_modules
+    sm_common
+    sm_kinematics 
+    sm_logging
+    sm_matrix_archive
+    sm_numpy_eigen
+    sm_property_tree
+    sm_python_module
+    sm_timing
+)
                                         
 find_package(Eigen3 REQUIRED)
 find_package(Boost REQUIRED COMPONENTS system serialization)
 
-include_directories(include ${EIGEN3_INCLUDE_DIR} ${catkin_INCLUDE_DIRS})
-
 
 catkin_package(
-  INCLUDE_DIRS include
-  LIBRARIES ${PROJECT_NAME}
-  CATKIN_DEPENDS sm_common sm_numpy_eigen sm_kinematics sm_timing sm_logging
-                 sm_matrix_archive sm_property_tree sm_python_module
-  DEPENDS
+  INCLUDE_DIRS
+    include
+    ${EIGEN3_INCLUDE_DIR}
+  LIBRARIES
+    ${PROJECT_NAME}
+  CATKIN_DEPENDS
+    sm_common
+    sm_kinematics
+    sm_logging
+    sm_matrix_archive
+    sm_numpy_eigen
+    sm_property_tree
+    sm_python_module
+    sm_timing
 )
 add_definitions(-std=c++0x -D__STRICT_ANSI__)
 
