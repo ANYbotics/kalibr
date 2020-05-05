@@ -15,6 +15,7 @@ find_package(catkin REQUIRED
 )
 
 find_package(Eigen3 REQUIRED)
+find_package(Boost REQUIRED COMPONENTS thread)
 find_package(SUITESPARSE REQUIRED)
 
 catkin_package(
@@ -27,6 +28,7 @@ catkin_package(
     ${CATKIN_PACKAGE_DEPENDENCIES}
   DEPENDS
     SUITESPARSE
+    Boost
 )
 
 if (PKG_CONFIG_FOUND)
@@ -48,6 +50,7 @@ include_directories(
   SYSTEM
     ${catkin_INCLUDE_DIRS}
     ${EIGEN3_INCLUDE_DIR}
+    ${Boost_INCLUDE_DIRS}
     ${SUITESPARSE_INCLUDE_DIRS}
 )
 
@@ -59,6 +62,7 @@ add_library(${PROJECT_NAME}
 
 target_link_libraries(${PROJECT_NAME}
   ${catkin_LIBRARIES}
+  ${Boost_LIBRARIES}
   ${SUITESPARSE_LIBRARIES}
 )
 

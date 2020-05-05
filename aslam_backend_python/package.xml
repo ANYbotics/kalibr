@@ -9,6 +9,8 @@
   <license>BSD</license>
   <buildtool_depend>catkin</buildtool_depend>
 
+  <depend>boost</depend>
+
   <depend>aslam_backend</depend>
   <depend>aslam_backend_expressions</depend>
   <depend>aslam_sparse_block_matrix</depend>

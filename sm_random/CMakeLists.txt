@@ -3,6 +3,7 @@ project(sm_random)
 
 add_compile_options(-w)
 
+find_package(Boost REQUIRED COMPONENTS system)
 find_package(catkin REQUIRED)
 
 include_directories(${catkin_INCLUDE_DIRS})
@@ -12,9 +13,12 @@ catkin_package(
   LIBRARIES ${PROJECT_NAME}
   CATKIN_DEPENDS 
   DEPENDS
+    Boost
 )
 
-include_directories(include)
+include_directories(
+  include
+  ${Boost_INCLUDE_DIRS})
 
 ##############
 ## Building ##
@@ -22,6 +26,10 @@ include_directories(include)
 
 add_library(${PROJECT_NAME}
   src/random.cpp
+)
+
+target_link_libraries(${PROJECT_NAME}
+    ${Boost_LIBRARIES}
 )
 
 ##################
