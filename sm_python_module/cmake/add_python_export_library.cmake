@@ -19,7 +19,7 @@ FUNCTION(add_python_export_library TARGET_NAME PYTHON_MODULE_DIRECTORY )
   # Cmake is a very bad scripting language. Very bad indeed.
   # Get the leaf of the python module directory. This is the python package name
   # This first command makes sure to strip off the trailing /
-  get_filename_component(TMP "${PYTHON_MODULE_DIRECTORY}/garbage.txt" PATH)
+  get_filename_component(TMP "${PYTHON_MODULE_DIRECTORY}/tmp_file.txt" PATH)
   # This grabs the leaf of the path
   get_filename_component(PYTHON_PACKAGE_NAME "${TMP}.txt" NAME_WE)
   # This grabs the parent of the leaf
@@ -107,9 +107,9 @@ ${SETUP_PY_TEXT}
 
   # On OSX and Linux, the python library must end in the extension .so. Build this
   # filename here.
-  get_property(PYLIB_OUTPUT_FILE TARGET ${TARGET_NAME} PROPERTY LOCATION)
-  get_filename_component(PYLIB_OUTPUT_NAME ${PYLIB_OUTPUT_FILE} NAME_WE)
-  set(PYLIB_SO_NAME ${PYLIB_OUTPUT_NAME}.so)
+  # Reference https://cmake.org/pipermail/cmake/2011-November/047267.html.
+  set(PYLIB_SO_NAME ${CMAKE_SHARED_LIBRARY_PREFIX}${TARGET_NAME}${CMAKE_SHARED_LIBRARY_SUFFIX})
+  set(PYLIB_OUTPUT_FILE ${CATKIN_DEVEL_PREFIX}/${CATKIN_GLOBAL_LIB_DESTINATION}/${PYLIB_SO_NAME})
 
   if(APPLE)
     SET(DIST_DIR site-packages)
