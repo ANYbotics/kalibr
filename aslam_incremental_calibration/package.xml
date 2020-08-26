@@ -18,4 +18,6 @@
   <depend>sm_eigen</depend>
   <depend>suitesparse</depend>
   <depend>tbb</depend>
+
+<!--   <test_depend>cmake_code_coverage</test_depend> -->
 </package>

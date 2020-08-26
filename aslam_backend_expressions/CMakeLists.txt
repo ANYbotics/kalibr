@@ -133,3 +133,36 @@ install(
     include/${PROJECT_NAME}
   DESTINATION ${CATKIN_GLOBAL_INCLUDE_DESTINATION}
 )
+
+##############
+##   Test   ##
+##############
+if(CATKIN_ENABLE_TESTING)
+  catkin_add_gtest(test_${PROJECT_NAME}
+    test/empty_test.cpp
+  )
+
+  target_include_directories(test_${PROJECT_NAME}
+    PRIVATE
+      include
+    SYSTEM PUBLIC
+      ${catkin_INCLUDE_DIRS}
+  )
+
+  target_link_libraries(test_${PROJECT_NAME}
+    gtest_main
+    ${PROJECT_NAME}
+    ${catkin_LIBRARIES}
+  )
+
+  ###################
+  ## Code_coverage ##
+  ###################
+  find_package(cmake_code_coverage QUIET)
+  if(cmake_code_coverage_FOUND)
+    add_gtest_coverage(
+      TEST_BUILD_TARGETS
+        test_${PROJECT_NAME}
+    )
+  endif(cmake_code_coverage_FOUND)
+endif()

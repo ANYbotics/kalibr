@@ -10,4 +10,6 @@
     <buildtool_depend>catkin</buildtool_depend>
 
     <build_depend>boost</build_depend>
+
+<!--     <test_depend>cmake_code_coverage</test_depend> -->
 </package>

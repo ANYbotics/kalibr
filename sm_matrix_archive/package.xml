@@ -12,5 +12,6 @@
   <depend>cmake_modules</depend>
   <depend>eigen</depend>
   <depend>sm_common</depend>
-  
+
+<!--   <test_depend>cmake_code_coverage</test_depend> -->
 </package>

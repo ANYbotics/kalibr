@@ -20,4 +20,5 @@
     <depend>sm_property_tree</depend>
     <depend>sm_random</depend>
 
+<!--     <test_depend>cmake_code_coverage</test_depend> -->
 </package>

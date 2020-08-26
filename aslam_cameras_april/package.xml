@@ -19,4 +19,6 @@
   <depend>sm_eigen</depend>
   <depend>sm_logging</depend>
   <depend>sm_python</depend>
+
+<!--   <test_depend>cmake_code_coverage</test_depend> -->
 </package>

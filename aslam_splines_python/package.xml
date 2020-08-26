@@ -28,5 +28,6 @@
   <depend>sm_python_module</depend>
   <depend>sm_timing</depend>
   <depend>suitesparse</depend>
-  
+
+<!--   <test_depend>cmake_code_coverage</test_depend> -->
 </package>

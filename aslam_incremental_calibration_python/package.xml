@@ -17,4 +17,6 @@
   <depend>aslam_incremental_calibration</depend>
   <depend>sm_numpy_eigen</depend>
   <depend>sm_python_module</depend>
+
+<!--   <test_depend>cmake_code_coverage</test_depend> -->
 </package>

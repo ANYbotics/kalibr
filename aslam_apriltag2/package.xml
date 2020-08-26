@@ -13,5 +13,6 @@
   <depend>eigen</depend>
   <depend>libopencv-dev</depend>
   <depend>libv4l-dev</depend>
-  
+
+<!--   <test_depend>cmake_code_coverage</test_depend> -->
 </package>

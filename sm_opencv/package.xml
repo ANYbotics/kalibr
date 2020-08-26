@@ -12,4 +12,5 @@
   <depend>libopencv-dev</depend>
   <depend>sm_common</depend>
 
+<!--   <test_depend>cmake_code_coverage</test_depend> -->
 </package>
