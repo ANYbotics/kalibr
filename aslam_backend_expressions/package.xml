@@ -9,8 +9,6 @@
   <license>BSD</license>
   <buildtool_depend>catkin</buildtool_depend>
   
-  <!-- List dependencies to system libs and other catkin packages here. -->
-
   <depend>aslam_backend</depend>
   <depend>aslam_sparse_block_matrix</depend>
   <depend>eigen</depend>
@@ -21,6 +19,7 @@
   <depend>suitesparse</depend>
 
 <!--   <test_depend>cmake_code_coverage</test_depend> -->
+  <test_depend>gtest</test_depend>
 </package>
 
 

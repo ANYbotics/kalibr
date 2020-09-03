@@ -25,4 +25,5 @@
   <depend>suitesparse</depend>
 
 <!--   <test_depend>cmake_code_coverage</test_depend> -->
+  <test_depend>gtest</test_depend>
 </package>
