@@ -3,22 +3,24 @@ project(sm_random)
 
 add_compile_options(-w)
 
-find_package(Boost REQUIRED COMPONENTS system)
 find_package(catkin REQUIRED)
-
-include_directories(${catkin_INCLUDE_DIRS})
+find_package(Boost REQUIRED COMPONENTS system)
 
 catkin_package(
-  INCLUDE_DIRS include
-  LIBRARIES ${PROJECT_NAME}
-  CATKIN_DEPENDS 
+  INCLUDE_DIRS
+    include
+  LIBRARIES
+    ${PROJECT_NAME}
   DEPENDS
     Boost
 )
 
 include_directories(
   include
-  ${Boost_INCLUDE_DIRS})
+  SYSTEM
+    ${Boost_INCLUDE_DIRS}
+    ${catkin_INCLUDE_DIRS}
+)
 
 ##############
 ## Building ##
@@ -58,14 +60,12 @@ if(CATKIN_ENABLE_TESTING)
   catkin_add_gtest(test_${PROJECT_NAME}
     test/empty_test.cpp
   )
-
-  target_include_directories(test_${PROJECT_NAME}
-    PRIVATE
-      include
-    SYSTEM PUBLIC
-      ${catkin_INCLUDE_DIRS}
+  target_include_directories(test_${PROJECT_NAME} PRIVATE
+    include
   )
-
+  target_include_directories(test_${PROJECT_NAME} SYSTEM PUBLIC
+    ${catkin_INCLUDE_DIRS}
+  )
   target_link_libraries(test_${PROJECT_NAME}
     gtest_main
     ${PROJECT_NAME}

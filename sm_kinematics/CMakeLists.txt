@@ -3,13 +3,17 @@ project(sm_kinematics)
 
 add_compile_options(-w)
 
+set(CATKIN_PACKAGE_DEPENDENCIES
+  cmake_modules
+  sm_boost
+  sm_common
+  sm_eigen
+  sm_random
+)
+
 find_package(catkin REQUIRED
   COMPONENTS
-    cmake_modules
-    sm_boost
-    sm_common
-    sm_eigen
-    sm_random
+    ${CATKIN_PACKAGE_DEPENDENCIES}
 )
 
 find_package(Boost REQUIRED COMPONENTS system serialization filesystem)
@@ -27,10 +31,7 @@ catkin_package(
   LIBRARIES
     ${PROJECT_NAME}
   CATKIN_DEPENDS
-    sm_boost
-    sm_common
-    sm_eigen
-    sm_random
+    ${CATKIN_PACKAGE_DEPENDENCIES}
   DEPENDS
     Boost
 )
@@ -123,14 +124,12 @@ if(CATKIN_ENABLE_TESTING)
   catkin_add_gtest(test_${PROJECT_NAME}
     test/empty_test.cpp
   )
-
-  target_include_directories(test_${PROJECT_NAME}
-    PRIVATE
-      include
-    SYSTEM PUBLIC
-      ${catkin_INCLUDE_DIRS}
+  target_include_directories(test_${PROJECT_NAME} PRIVATE
+    include
   )
-
+  target_include_directories(test_${PROJECT_NAME} SYSTEM PUBLIC
+    ${catkin_INCLUDE_DIRS}
+  )
   target_link_libraries(test_${PROJECT_NAME}
     gtest_main
     ${PROJECT_NAME}

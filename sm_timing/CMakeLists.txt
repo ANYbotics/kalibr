@@ -3,14 +3,25 @@ project(sm_timing)
 
 add_compile_options(-w)
 
-find_package(catkin REQUIRED COMPONENTS sm_common sm_random)
+set(CATKIN_PACKAGE_DEPENDENCIES
+  sm_common
+  sm_random
+)
+
+find_package(catkin REQUIRED
+  COMPONENTS
+    ${CATKIN_PACKAGE_DEPENDENCIES}
+)
 
 find_package(Boost REQUIRED COMPONENTS system)
 
 catkin_package(
-  INCLUDE_DIRS include
-  LIBRARIES ${PROJECT_NAME}
-  CATKIN_DEPENDS sm_common sm_random
+  INCLUDE_DIRS
+    include
+  LIBRARIES
+    ${PROJECT_NAME}
+  CATKIN_DEPENDS
+    ${CATKIN_PACKAGE_DEPENDENCIES}
   DEPENDS
     Boost
 )
@@ -81,14 +92,12 @@ if(CATKIN_ENABLE_TESTING)
   catkin_add_gtest(test_${PROJECT_NAME}
     test/empty_test.cpp
   )
-
-  target_include_directories(test_${PROJECT_NAME}
-    PRIVATE
-      include
-    SYSTEM PUBLIC
-      ${catkin_INCLUDE_DIRS}
+  target_include_directories(test_${PROJECT_NAME} PRIVATE
+    include
   )
-
+  target_include_directories(test_${PROJECT_NAME} SYSTEM PUBLIC
+    ${catkin_INCLUDE_DIRS}
+  )
   target_link_libraries(test_${PROJECT_NAME}
     gtest_main
     ${PROJECT_NAME}

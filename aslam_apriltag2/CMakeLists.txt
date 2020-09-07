@@ -5,20 +5,22 @@ add_compile_options(-w)
 add_definitions(-fPIC)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR}/cmake/)
 
-find_package(catkin REQUIRED COMPONENTS cmake_modules)
+find_package(catkin REQUIRED
+  COMPONENTS
+    cmake_modules
+)
 
 find_package(Eigen3 REQUIRED)
 find_package(OpenCV REQUIRED)
 
 catkin_package(
-    INCLUDE_DIRS
-      include
-      ${EIGEN3_INCLUDE_DIR}
-    LIBRARIES
-      ${PROJECT_NAME}
-    DEPENDS
-      EIGEN3
-      OpenCV
+  INCLUDE_DIRS
+    include
+    ${EIGEN3_INCLUDE_DIR}
+  LIBRARIES
+    ${PROJECT_NAME}
+  DEPENDS
+    OpenCV
 )
 
 include_directories(
@@ -60,14 +62,12 @@ if(CATKIN_ENABLE_TESTING)
   catkin_add_gtest(test_${PROJECT_NAME}
     test/empty_test.cpp
   )
-
-  target_include_directories(test_${PROJECT_NAME}
-    PRIVATE
-      include
-    SYSTEM PUBLIC
-      ${catkin_INCLUDE_DIRS}
+  target_include_directories(test_${PROJECT_NAME} PRIVATE
+    include
   )
-
+  target_include_directories(test_${PROJECT_NAME} SYSTEM PUBLIC
+    ${catkin_INCLUDE_DIRS}
+  )
   target_link_libraries(test_${PROJECT_NAME}
     gtest_main
     ${PROJECT_NAME}

@@ -29,7 +29,8 @@ include_directories(
     ${catkin_INCLUDE_DIRS}
 )
 
-add_python_export_library(${PROJECT_NAME} src/aslam_incremental_calibration_python
+add_python_export_library(${PROJECT_NAME}
+  src/aslam_incremental_calibration_python
   src/module.cpp
   src/OptimizationProblem.cpp
   src/IncrementalEstimator.cpp
@@ -57,14 +58,12 @@ if(CATKIN_ENABLE_TESTING)
   catkin_add_gtest(test_${PROJECT_NAME}
     test/empty_test.cpp
   )
-
-  target_include_directories(test_${PROJECT_NAME}
-    PRIVATE
-      include
-    SYSTEM PUBLIC
-      ${catkin_INCLUDE_DIRS}
+  target_include_directories(test_${PROJECT_NAME} PRIVATE
+    include
   )
-
+  target_include_directories(test_${PROJECT_NAME} SYSTEM PUBLIC
+    ${catkin_INCLUDE_DIRS}
+  )
   target_link_libraries(test_${PROJECT_NAME}
     gtest_main
     ${PROJECT_NAME}

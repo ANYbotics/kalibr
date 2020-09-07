@@ -3,17 +3,21 @@ project(sm_python)
 
 add_compile_options(-w)
 
+set(CATKIN_PACKAGE_DEPENDENCIES
+  cmake_modules
+  sm_common
+  sm_kinematics 
+  sm_logging
+  sm_matrix_archive
+  sm_numpy_eigen
+  sm_property_tree
+  sm_python_module
+  sm_timing
+)
+
 find_package(catkin REQUIRED
   COMPONENTS
-    cmake_modules
-    sm_common
-    sm_kinematics 
-    sm_logging
-    sm_matrix_archive
-    sm_numpy_eigen
-    sm_property_tree
-    sm_python_module
-    sm_timing
+    ${CATKIN_PACKAGE_DEPENDENCIES}
 )
                                         
 find_package(Eigen3 REQUIRED)
@@ -27,14 +31,7 @@ catkin_package(
   LIBRARIES
     ${PROJECT_NAME}
   CATKIN_DEPENDS
-    sm_common
-    sm_kinematics
-    sm_logging
-    sm_matrix_archive
-    sm_numpy_eigen
-    sm_property_tree
-    sm_python_module
-    sm_timing
+    ${CATKIN_PACKAGE_DEPENDENCIES}
 )
 add_definitions(-std=c++0x -D__STRICT_ANSI__)
 
@@ -101,14 +98,12 @@ if(CATKIN_ENABLE_TESTING)
   catkin_add_gtest(test_${PROJECT_NAME}
     test/empty_test.cpp
   )
-
-  target_include_directories(test_${PROJECT_NAME}
-    PRIVATE
-      include
-    SYSTEM PUBLIC
-      ${catkin_INCLUDE_DIRS}
+  target_include_directories(test_${PROJECT_NAME} PRIVATE
+    include
   )
-
+  target_include_directories(test_${PROJECT_NAME} SYSTEM PUBLIC
+    ${catkin_INCLUDE_DIRS}
+  )
   target_link_libraries(test_${PROJECT_NAME}
     gtest_main
     ${PROJECT_NAME}
