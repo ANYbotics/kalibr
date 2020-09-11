@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 import kalibr_common as kc
 
 import numpy as np
@@ -71,8 +71,8 @@ if __name__ == "__main__":
         with open(parsed.outLoc, 'w') as file_:
           file_.write(CONFIG)
     else:
-        print
-        print "Copy the following block to your msf configuration:"
-        print "-----------------------------------------------------"
-        print
-        print CONFIG
+        print()
+        print("Copy the following block to your msf configuration:")
+        print("-----------------------------------------------------")
+        print()
+        print(CONFIG)

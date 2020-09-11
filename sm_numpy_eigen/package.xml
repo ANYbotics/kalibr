@@ -13,8 +13,8 @@
   
   <depend>cmake_modules</depend>
   <depend>eigen</depend>
-  <depend>python-dev</depend>
-  <depend>python-numpy</depend>
+  <depend>python3-dev</depend>
+  <depend>python3-numpy</depend>
   <depend>sm_python_module</depend>
 
 <!--   <test_depend>cmake_code_coverage</test_depend> -->

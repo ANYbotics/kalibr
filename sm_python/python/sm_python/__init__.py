@@ -1,11 +1,11 @@
 import sm_numpy_eigen
 import inspect
 
-from libsm_python import *
-from plotCoordinateFrame import plotCoordinateFrame
-from Progress import Progress
-from Progress import Progress2
-from saveFigTight import saveFigTight
+from sm_python.libsm_python import *
+from sm_python.plotCoordinateFrame import plotCoordinateFrame
+from sm_python.Progress import Progress
+from sm_python.Progress import Progress2
+from sm_python.saveFigTight import saveFigTight
 
 
 def logInfo(message):

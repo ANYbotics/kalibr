@@ -59,7 +59,7 @@ class RadialTangentialDistortion {
    * @param y The point in the normalized image plane. After the function, this point is distorted.
    */
   template<typename DERIVED_Y>
-  void distort(const Eigen::MatrixBase<DERIVED_Y> & y) const;
+  void distort(const DERIVED_Y & y) const;
 
   /** 
    * 
@@ -69,8 +69,8 @@ class RadialTangentialDistortion {
    * @param outJy The Jacobian of the distortion function with respect to small changes in the input point.
    */
   template<typename DERIVED_Y, typename DERIVED_JY>
-  void distort(const Eigen::MatrixBase<DERIVED_Y> & y,
-               const Eigen::MatrixBase<DERIVED_JY> & outJy) const;
+  void distort(const DERIVED_Y & y,
+               const DERIVED_JY & outJy) const;
 
   /** 
    * \brief Apply undistortion to recover a point in the normalized image plane.
@@ -78,7 +78,7 @@ class RadialTangentialDistortion {
    * @param y The distorted point. After the function, this point is in the normalized image plane.
    */
   template<typename DERIVED>
-  void undistort(const Eigen::MatrixBase<DERIVED> & y) const;
+  void undistort(const DERIVED & y) const;
 
   /** 
    * \brief Apply undistortion to recover a point in the normalized image plane.
@@ -87,8 +87,8 @@ class RadialTangentialDistortion {
    * @param outJy The Jacobian of the undistortion function with respect to small changes in the input point.
    */
   template<typename DERIVED, typename DERIVED_JY>
-  void undistort(const Eigen::MatrixBase<DERIVED> & y,
-                 const Eigen::MatrixBase<DERIVED_JY> & outJy) const;
+  void undistort(const DERIVED & y,
+                 const DERIVED_JY & outJy) const;
 
   /** 
    * \brief Apply distortion to the point and provide the Jacobian of the distortion with respect to small changes in the distortion parameters
@@ -98,8 +98,8 @@ class RadialTangentialDistortion {
    */
   template<typename DERIVED_Y, typename DERIVED_JD>
   void distortParameterJacobian(
-      const Eigen::MatrixBase<DERIVED_Y> & imageY,
-      const Eigen::MatrixBase<DERIVED_JD> & outJd) const;
+      const DERIVED_Y & imageY,
+      const DERIVED_JD & outJd) const;
 
   /** 
    * \brief A function for compatibility with the aslam backend. This implements an update of the distortion parameter.

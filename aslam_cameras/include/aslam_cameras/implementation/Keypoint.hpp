@@ -40,9 +40,9 @@ Keypoint<D>::Keypoint(const Keypoint & rhs)
 template<int D>
 template<typename DERIVED>
 double Keypoint<D>::mahalonibisDistance(
-    const Eigen::MatrixBase<DERIVED> & y) const {
+    const DERIVED & y) const {
   EIGEN_STATIC_ASSERT_VECTOR_SPECIFIC_SIZE_OR_DYNAMIC(
-      Eigen::MatrixBase<DERIVED>, D);
+      DERIVED, D);
   measurement_t e = y.derived().template head<D>() - _measurement;
 
   return e.dot(_inverseMeasurementCovariance * e);

@@ -1,5 +1,5 @@
-import wxversion
-wxversion.ensureMinimal('2.8')
+#import wxversion
+#wxversion.ensureMinimal('2.8')
 
 import wx
 import wx.aui

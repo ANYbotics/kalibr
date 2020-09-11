@@ -63,7 +63,7 @@ ${SETUP_PY_TEXT}
   catkin_python_setup()
 
   # Find Python
-  FIND_PACKAGE(PythonLibs 2.7 REQUIRED)
+  FIND_PACKAGE(PythonLibs 3.8 REQUIRED)
   INCLUDE_DIRECTORIES(${PYTHON_INCLUDE_DIRS})
 
   if(APPLE)
@@ -86,7 +86,7 @@ ${SETUP_PY_TEXT}
       list(APPEND BOOST_COMPONENTS python27)
     endif()
   else()
-    list(APPEND BOOST_COMPONENTS python3)
+    list(APPEND BOOST_COMPONENTS python38)
   endif()
   find_package(Boost REQUIRED COMPONENTS ${BOOST_COMPONENTS}) 
 
@@ -125,7 +125,7 @@ ${SETUP_PY_TEXT}
   )
   
   # Cause the library to be output in the correct directory.
-  set(PYTHON_LIB_DIR ${CATKIN_DEVEL_PREFIX}/lib/python2.7/${DIST_DIR}/${PYTHON_PACKAGE_NAME})
+  set(PYTHON_LIB_DIR ${CATKIN_DEVEL_PREFIX}/lib/python3/${DIST_DIR}/${PYTHON_PACKAGE_NAME})
   add_custom_command(TARGET ${TARGET_NAME}
     POST_BUILD
     COMMAND mkdir -p ${PYTHON_LIB_DIR} && cp -v ${PYLIB_OUTPUT_FILE} ${PYTHON_LIB_DIR}/${PYLIB_SO_NAME}

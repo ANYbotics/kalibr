@@ -11,7 +11,7 @@
   
   <depend>cmake_modules</depend>
   <depend>eigen</depend>
-  <depend>python-matplotlib</depend>
+  <depend>python3-matplotlib</depend>
   <depend>sm_common</depend>
   <depend>sm_kinematics</depend>
   <depend>sm_logging</depend>

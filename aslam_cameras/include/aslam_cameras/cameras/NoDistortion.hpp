@@ -27,23 +27,23 @@ class NoDistortion {
   virtual ~NoDistortion();
 
   template<typename DERIVED_Y>
-  void distort(const Eigen::MatrixBase<DERIVED_Y> & y) const;
+  void distort(const DERIVED_Y & y) const;
 
   template<typename DERIVED_Y, typename DERIVED_JY>
-  void distort(const Eigen::MatrixBase<DERIVED_Y> & y,
-               const Eigen::MatrixBase<DERIVED_JY> & outJy) const;
+  void distort(const DERIVED_Y & y,
+               const DERIVED_JY & outJy) const;
 
   template<typename DERIVED>
-  void undistort(const Eigen::MatrixBase<DERIVED> & y) const;
+  void undistort(const DERIVED & y) const;
 
   template<typename DERIVED, typename DERIVED_JY>
-  void undistort(const Eigen::MatrixBase<DERIVED> & y,
-                 const Eigen::MatrixBase<DERIVED_JY> & outJy) const;
+  void undistort(const DERIVED & y,
+                 const DERIVED_JY & outJy) const;
 
   template<typename DERIVED_Y, typename DERIVED_JD>
   void distortParameterJacobian(
-      const Eigen::MatrixBase<DERIVED_Y> & imageY,
-      const Eigen::MatrixBase<DERIVED_JD> & outJd) const;
+      const DERIVED_Y & imageY,
+      const DERIVED_JD & outJd) const;
 
   // aslam::backend compatibility
   void update(const double * v);

@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 import os
 
 # Create the module path
@@ -53,11 +53,13 @@ with open(os.path.join(module_path,'sm_numpy_eigen_export_module.cpp'),'w') as f
                 f.write('void import_%s_%s_%s();\n' % (d1, d2, T));
     f.write('\n')
 
+    f.write('#define NUMPY_PYTHON38_FIX_RETVAL')
+    f.write('\n')
     f.write('BOOST_PYTHON_MODULE(libsm_numpy_eigen)\n')
     f.write('{\n')
     f.write('\tusing namespace boost::python;\n')
     f.write('\t// Without this import, the converter will segfault\n');
-    f.write('\timport_array();\n');
+    f.write('\timport_array1(NUMPY_PYTHON38_FIX_RETVAL);\n');
     f.write('\n');
     for d1 in dimTags:
         for d2 in dimTags:

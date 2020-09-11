@@ -1,6 +1,6 @@
 # Import the numpy to Eigen type conversion.
 import sm_numpy_eigen
-from ConfigReader import *
-from ImageDatasetReader import *
-from ImuDatasetReader import *
-from TargetExtractor import *
+from kalibr_common.ConfigReader import *
+from kalibr_common.ImageDatasetReader import *
+from kalibr_common.ImuDatasetReader import *
+from kalibr_common.TargetExtractor import *

@@ -143,22 +143,22 @@ class ObservationDatabase(object):
 #############################################################    
     def printTable(self):
         #header
-        print "timestamp \t",        
+        print("timestamp \t",)
         for cam_id in range(0, self.numCameras()):
-            print "cam{0} \t".format(cam_id),
-        print
+            print( "cam{0} \t".format(cam_id),)
+        print()
         
         #sort for time
         times_sorted = np.sort(self.targetViews.keys())
         
         #data lines
         for time in times_sorted:
-            print time,
+            print (time,)
             for cam_id in range(0, self.numCameras()):
                 try:
                     numCorners = len(self.targetViews[time][cam_id]['observed_corners'])
                 except KeyError:
                     numCorners = "-"
-                print "\t", numCorners,
-            print
+                print("\t", numCorners,)
+            print()
 

@@ -6,7 +6,7 @@ import roslib; roslib.load_manifest('sm_python'); import sm_python
 import roslib; roslib.load_manifest('aslam_backend'); import aslam_backend_python
 import roslib; roslib.load_manifest('aslam_cv_python'); import aslam_cv_python
 # Import the the C++ exports from your package library.
-from libaslam_cv_backend_python import *
+from aslam_cv_backend_python.libaslam_cv_backend_python import *
 # Import other files in the directory
 # from mypyfile import *
 

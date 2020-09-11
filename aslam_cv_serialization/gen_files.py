@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 CAMERA_FILE_HEADER="""
 /**

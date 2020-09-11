@@ -3,7 +3,7 @@ import sm_python
 import numpy as np
 import sys
 import multiprocessing
-import Queue
+import queue as Queue
 import time
 import copy
 import cv2
@@ -29,7 +29,7 @@ def multicoreExtractionWrapper(detector, taskq, resultq, clearImages, noTransfor
             resultq.put( (obs, idx) )
 
 def extractCornersFromDataset(dataset, detector, multithreading=False, numProcesses=None, clearImages=True, noTransformation=False):
-    print "Extracting calibration target corners"    
+    print("Extracting calibration target corners")
     targetObservations = []
     numImages = dataset.numImages()
     
@@ -47,7 +47,7 @@ def extractCornersFromDataset(dataset, detector, multithreading=False, numProces
             taskq = manager2.Queue()
             
             for idx, (timestamp, image) in enumerate(dataset.readDataset()):
-                taskq.put( (idx, timestamp, image) )
+                taskq.put((idx, timestamp, image))
                 
             plist=list()
             for pidx in range(0, numProcesses):
@@ -69,7 +69,7 @@ def extractCornersFromDataset(dataset, detector, multithreading=False, numProces
                 last_done = done
                 time.sleep(0.5)
             resultq.put('STOP')
-        except Exception, e:
+        except Exception as e:
             raise RuntimeError("Exception during multithreaded extraction: {0}".format(e))
         
         #get result sorted by time (=idx)
@@ -78,7 +78,8 @@ def extractCornersFromDataset(dataset, detector, multithreading=False, numProces
             for lidx, data in enumerate(iter(resultq.get, 'STOP')):
                 obs=data[0]; time_idx = data[1]
                 targetObservations[lidx] = (time_idx, obs)
-            targetObservations = list(zip(*sorted(targetObservations, key=lambda tup: tup[0]))[1])
+            #  https://stackoverflow.com/questions/27431390/typeerror-zip-object-is-not-subscriptable/27431433
+            targetObservations = list(zip(*sorted(targetObservations, key=lambda tup: tup[0])))[1]
         else:
             targetObservations=[]
     
@@ -96,10 +97,10 @@ def extractCornersFromDataset(dataset, detector, multithreading=False, numProces
             iProgress.sample()
 
     if len(targetObservations) == 0:
-        print "\r"
+        print("\r")
         sm_python.logFatal("No corners could be extracted for camera {0}! Check the calibration target configuration and dataset.".format(dataset.topic))
     else:    
-        print "\r  Extracted corners for %d images (of %d images)                              " % (len(targetObservations), numImages)
+        print("\r  Extracted corners for %d images (of %d images)                              " % (len(targetObservations), numImages))
 
     #close all opencv windows that might be open
     cv2.destroyAllWindows()

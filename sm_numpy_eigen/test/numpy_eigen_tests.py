@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 import roslib; roslib.load_manifest('sm_numpy_eigen'); roslib.load_manifest('rostest'); 
 import sm_numpy_eigen
 import sm_numpy_eigen.test as npe

@@ -249,11 +249,13 @@ void import_D_D_double();
 void import_D_D_uchar();
 void import_D_D_long();
 
+#define NUMPY_PYTHON38_FIX_RETVAL
+
 BOOST_PYTHON_MODULE(libsm_numpy_eigen)
 {
 	using namespace boost::python;
 	// Without this import, the converter will segfault
-	import_array();
+	import_array1(NUMPY_PYTHON38_FIX_RETVAL);
 
 	import_1_1_int();
 	import_1_1_float();

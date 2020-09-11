@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 import aslam_bsplines_python
 import numpy
 import scipy.interpolate.fitpack as fp

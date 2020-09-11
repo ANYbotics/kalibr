@@ -53,71 +53,71 @@ class PinholeProjection {
 
   template<typename DERIVED_P, typename DERIVED_K>
   bool euclideanToKeypoint(
-      const Eigen::MatrixBase<DERIVED_P> & p,
-      const Eigen::MatrixBase<DERIVED_K> & outKeypoint) const;
+      const DERIVED_P & p,
+      const DERIVED_K & outKeypoint) const;
 
   template<typename DERIVED_P, typename DERIVED_K, typename DERIVED_JP>
-  bool euclideanToKeypoint(const Eigen::MatrixBase<DERIVED_P> & p,
-                           const Eigen::MatrixBase<DERIVED_K> & outKeypoint,
-                           const Eigen::MatrixBase<DERIVED_JP> & outJp) const;
+  bool euclideanToKeypoint(const DERIVED_P & p,
+                           const DERIVED_K & outKeypoint,
+                           const DERIVED_JP & outJp) const;
 
   template<typename DERIVED_P, typename DERIVED_K>
   bool homogeneousToKeypoint(
-      const Eigen::MatrixBase<DERIVED_P> & p,
-      const Eigen::MatrixBase<DERIVED_K> & outKeypoint) const;
+      const DERIVED_P & p,
+      const DERIVED_K & outKeypoint) const;
 
   template<typename DERIVED_P, typename DERIVED_K, typename DERIVED_JP>
-  bool homogeneousToKeypoint(const Eigen::MatrixBase<DERIVED_P> & p,
-                             const Eigen::MatrixBase<DERIVED_K> & outKeypoint,
-                             const Eigen::MatrixBase<DERIVED_JP> & outJp) const;
+  bool homogeneousToKeypoint(const DERIVED_P & p,
+                             const DERIVED_K & outKeypoint,
+                             const DERIVED_JP & outJp) const;
 
   template<typename DERIVED_K, typename DERIVED_P>
-  bool keypointToEuclidean(const Eigen::MatrixBase<DERIVED_K> & keypoint,
-                           const Eigen::MatrixBase<DERIVED_P> & outPoint) const;
+  bool keypointToEuclidean(const DERIVED_K & keypoint,
+                           const DERIVED_P & outPoint) const;
 
   template<typename DERIVED_K, typename DERIVED_P, typename DERIVED_JK>
-  bool keypointToEuclidean(const Eigen::MatrixBase<DERIVED_K> & keypoint,
-                           const Eigen::MatrixBase<DERIVED_P> & outPoint,
-                           const Eigen::MatrixBase<DERIVED_JK> & outJk) const;
+  bool keypointToEuclidean(const DERIVED_K & keypoint,
+                           const DERIVED_P & outPoint,
+                           const DERIVED_JK & outJk) const;
 
   template<typename DERIVED_K, typename DERIVED_P>
   bool keypointToHomogeneous(
-      const Eigen::MatrixBase<DERIVED_K> & keypoint,
-      const Eigen::MatrixBase<DERIVED_P> & outPoint) const;
+      const DERIVED_K & keypoint,
+      const DERIVED_P & outPoint) const;
 
   template<typename DERIVED_K, typename DERIVED_P, typename DERIVED_JK>
-  bool keypointToHomogeneous(const Eigen::MatrixBase<DERIVED_K> & keypoint,
-                             const Eigen::MatrixBase<DERIVED_P> & outPoint,
-                             const Eigen::MatrixBase<DERIVED_JK> & outJk) const;
+  bool keypointToHomogeneous(const DERIVED_K & keypoint,
+                             const DERIVED_P & outPoint,
+                             const DERIVED_JK & outJk) const;
 
   template<typename DERIVED_P, typename DERIVED_JI>
   void euclideanToKeypointIntrinsicsJacobian(
-      const Eigen::MatrixBase<DERIVED_P> & p,
-      const Eigen::MatrixBase<DERIVED_JI> & outJi) const;
+      const DERIVED_P & p,
+      const DERIVED_JI & outJi) const;
 
   template<typename DERIVED_P, typename DERIVED_JD>
   void euclideanToKeypointDistortionJacobian(
-      const Eigen::MatrixBase<DERIVED_P> & p,
-      const Eigen::MatrixBase<DERIVED_JD> & outJd) const;
+      const DERIVED_P & p,
+      const DERIVED_JD & outJd) const;
 
   template<typename DERIVED_P, typename DERIVED_JI>
   void homogeneousToKeypointIntrinsicsJacobian(
-      const Eigen::MatrixBase<DERIVED_P> & p,
-      const Eigen::MatrixBase<DERIVED_JI> & outJi) const;
+      const DERIVED_P & p,
+      const DERIVED_JI & outJi) const;
 
   template<typename DERIVED_P, typename DERIVED_JD>
   void homogeneousToKeypointDistortionJacobian(
-      const Eigen::MatrixBase<DERIVED_P> & p,
-      const Eigen::MatrixBase<DERIVED_JD> & outJd) const;
+      const DERIVED_P & p,
+      const DERIVED_JD & outJd) const;
 
   template<typename DERIVED_K>
-  bool isValid(const Eigen::MatrixBase<DERIVED_K> & keypoint) const;
+  bool isValid(const DERIVED_K & keypoint) const;
 
   template<typename DERIVED_P>
-  bool isEuclideanVisible(const Eigen::MatrixBase<DERIVED_P> & p) const;
+  bool isEuclideanVisible(const DERIVED_P & p) const;
 
   template<typename DERIVED_P>
-  bool isHomogeneousVisible(const Eigen::MatrixBase<DERIVED_P> & ph) const;
+  bool isHomogeneousVisible(const DERIVED_P & ph) const;
 
   // aslam::backend compatibility
   void update(const double * v);

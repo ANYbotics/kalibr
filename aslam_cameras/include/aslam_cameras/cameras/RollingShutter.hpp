@@ -29,7 +29,7 @@ class RollingShutter {
   ~RollingShutter();
 
   template<typename DERIVED_K>
-  Duration temporalOffset(const Eigen::MatrixBase<DERIVED_K> & k) const {
+  Duration temporalOffset(const DERIVED_K & k) const {
     return Duration(_lineDelay * k[1]);
   }
 
@@ -69,10 +69,10 @@ class RollingShutter {
   /// The resulting jacobian assumes the output of "temporal offset" is in seconds.
   template<typename DERIVED_K, typename DERIVED_J>
   void temporalOffsetIntrinsicsJacobian(
-      const Eigen::MatrixBase<DERIVED_K> & k,
-      const Eigen::MatrixBase<DERIVED_J> & outJ) const {
-    Eigen::MatrixBase<DERIVED_J> & J =
-        const_cast<Eigen::MatrixBase<DERIVED_J> &>(outJ);
+      const DERIVED_K & k,
+      const DERIVED_J & outJ) const {
+    DERIVED_J & J =
+        const_cast<DERIVED_J &>(outJ);
     J.resize(1, 1);
     J(0, 0) = k[1];
   }

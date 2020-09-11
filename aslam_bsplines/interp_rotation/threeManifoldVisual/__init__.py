@@ -89,14 +89,14 @@ class Manifold :
                 if handler:
                     handler()
                 else:
-                    print "'" + s + "'"
-                    print self.__keyHandler
+                    print("'" + s + "'")
+                    print(self.__keyHandler)
             elif self.display.mouse.events:
                 ev = self.display.mouse.getevent()
                 if ev.press :
                     try :
                         p = ev.pick.point
-                        print p
+                        print(p)
                     except :
                         pass
             else:

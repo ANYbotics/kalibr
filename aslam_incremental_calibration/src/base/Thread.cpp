@@ -25,11 +25,11 @@
 #include "aslam_incremental_calibration/exceptions/InvalidOperationException.h"
 
 #ifdef __NR_gettid
-static pid_t gettid (void) {
+static pid_t _gettid (void) {
   return syscall(__NR_gettid);
 }
 #else
-static pid_t gettid (void) {
+static pid_t _gettid (void) {
   return -ENOSYS;
 }
 #endif
@@ -350,7 +350,7 @@ namespace aslam {
     void Thread::initialize() {
       Mutex::ScopedLock lock(mMutex);
       mIdentifier.mProcess = getpid();
-      mIdentifier.mKernel = gettid();
+      mIdentifier.mKernel = _gettid();
       Threads::getInstance().registerThread(*this);
       safeSetState(running);
       mStarted.signal(Condition::broadcast);

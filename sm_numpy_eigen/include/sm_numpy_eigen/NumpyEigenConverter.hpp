@@ -15,7 +15,6 @@
 #include <sm_numpy_eigen/boost_python_headers.hpp>
 //#include <iostream>
 
-
 #define PY_ARRAY_UNIQUE_SYMBOL NP_Eigen_AS
 #include <numpy/arrayobject.h> 
 

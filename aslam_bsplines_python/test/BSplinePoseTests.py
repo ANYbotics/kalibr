@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 import roslib; roslib.load_manifest('aslam_bsplines');
 roslib.load_manifest('sm_python') 
 import aslam_bsplines_python

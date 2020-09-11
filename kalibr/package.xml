@@ -22,11 +22,13 @@
   <depend>libblas-dev</depend>
   <depend>liblapack-dev</depend>
   <depend>sm_numpy_eigen</depend>
-  <depend>python-igraph</depend>
-  <depend>python-matplotlib</depend>
-  <depend>python-scipy</depend>
+  <depend>python3-igraph</depend>
+  <depend>python3-matplotlib</depend>
+  <depend>python3-scipy</depend>
   <depend>sm_python</depend>
   <depend>sm_python_module</depend>
+  
+  <exec_depend>python3-wxgtk4.0</exec_depend>
 
 <!--   <test_depend>cmake_code_coverage</test_depend> -->
   <test_depend>gtest</test_depend>

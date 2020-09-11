@@ -29,7 +29,7 @@ class AprilTagCodes:
             self.tagCodes = AprilTagCodes.TagFamilies[chosenTagFamiliy][0]
             self.totalBits = AprilTagCodes.TagFamilies[chosenTagFamiliy][1]
         except:
-            print "[ERROR]: Unknown tag familiy."
+            print("[ERROR]: Unknown tag familiy.")
             sys.exit(0)
 
 #borderBits must be consitent with the variable "blackBorder" in the detector code in file aslam_apriltag2/src/TagFamily.cc
@@ -38,7 +38,7 @@ def generateAprilTag(canvas, position, metricSize, tagSpacing, tagID, tagFamilil
     try:
         tagCode=tagFamililyData.tagCodes[tagID]
     except:
-        print "[ERROR]: Requested tag ID of {0} not available in the {1} TagFamiliy".format(tagID, tagFamililyData.chosenTagFamiliy)        
+        print("[ERROR]: Requested tag ID of {0} not available in the {1} TagFamiliy".format(tagID, tagFamililyData.chosenTagFamiliy))
 
     #calculate the bit size of the tag
     sqrtBits = (math.sqrt(tagFamililyData.totalBits))
@@ -90,7 +90,7 @@ def generateAprilTag(canvas, position, metricSize, tagSpacing, tagID, tagFamilil
 def generateAprilBoard(canvas, n_cols, n_rows, tagSize, tagSpacing=0.25, tagFamilily="t36h11"):
     
     if(tagSpacing<0 or tagSpacing>1.0):
-        print "[ERROR]: Invalid tagSpacing specified.  [0-1.0] of tagSize"
+        print("[ERROR]: Invalid tagSpacing specified.  [0-1.0] of tagSize")
         sys.exit(0)
         
     #convert to cm
@@ -135,7 +135,7 @@ def generateCheckerboard(canvas, n_cols, n_rows, size_cols, size_rows):
     size_rows = size_rows*100.0
     
     #message
-    print "Generating a checkerboard with {0}x{1} corners and a box size of {2}x{3} cm".format(n_cols,n_rows,size_cols,size_rows)
+    print("Generating a checkerboard with {0}x{1} corners and a box size of {2}x{3} cm".format(n_cols,n_rows,size_cols,size_rows))
     
     #draw boxes
     for x in range(0,n_cols+1):
@@ -187,7 +187,7 @@ if __name__ == "__main__":
     elif parsed.gridType == "checkerboard":
         generateCheckerboard(c, parsed.n_cols, parsed.n_rows, parsed.chessSzX, parsed.chessSzY)
     else:
-        print "[ERROR]: Unknown grid pattern"
+        print("[ERROR]: Unknown grid pattern")
         sys.exit(0)
             
     #write to file

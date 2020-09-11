@@ -3,13 +3,13 @@ namespace cameras {
 
 template<typename DERIVED_Y>
 void FovDistortion::distort(
-    const Eigen::MatrixBase<DERIVED_Y> & yconst) const {
+    const DERIVED_Y & yconst) const {
 
   EIGEN_STATIC_ASSERT_VECTOR_SPECIFIC_SIZE_OR_DYNAMIC(
-      Eigen::MatrixBase<DERIVED_Y>, 2);
+      DERIVED_Y, 2);
 
-  Eigen::MatrixBase<DERIVED_Y> & y =
-      const_cast<Eigen::MatrixBase<DERIVED_Y> &>(yconst);
+  DERIVED_Y & y =
+      const_cast<DERIVED_Y &>(yconst);
   y.derived().resize(2);
 
   Eigen::Matrix2d J;
@@ -18,20 +18,20 @@ void FovDistortion::distort(
 
 template<typename DERIVED_Y, typename DERIVED_JY>
 void FovDistortion::distort(
-    const Eigen::MatrixBase<DERIVED_Y> & yconst,
-    const Eigen::MatrixBase<DERIVED_JY> & outJy) const {
+    const DERIVED_Y & yconst,
+    const DERIVED_JY & outJy) const {
   EIGEN_STATIC_ASSERT_VECTOR_SPECIFIC_SIZE_OR_DYNAMIC(
-      Eigen::MatrixBase<DERIVED_Y>, 2);
+      DERIVED_Y, 2);
   EIGEN_STATIC_ASSERT_MATRIX_SPECIFIC_SIZE_OR_DYNAMIC(
-      Eigen::MatrixBase<DERIVED_JY>, 2, 2);
+      DERIVED_JY, 2, 2);
 
-  Eigen::MatrixBase<DERIVED_JY> & J =
-      const_cast<Eigen::MatrixBase<DERIVED_JY> &>(outJy);
+  DERIVED_JY & J =
+      const_cast<DERIVED_JY &>(outJy);
   J.derived().resize(2, 2);
   J.setZero();
 
-  Eigen::MatrixBase<DERIVED_Y> & y =
-      const_cast<Eigen::MatrixBase<DERIVED_Y> &>(yconst);
+  DERIVED_Y & y =
+      const_cast<DERIVED_Y &>(yconst);
   y.derived().resize(2);
 
   const double r_u = y.norm();
@@ -87,12 +87,12 @@ void FovDistortion::distort(
 
 template<typename DERIVED>
 void FovDistortion::undistort(
-    const Eigen::MatrixBase<DERIVED> & yconst) const {
+    const DERIVED & yconst) const {
   EIGEN_STATIC_ASSERT_VECTOR_SPECIFIC_SIZE_OR_DYNAMIC(
-      Eigen::MatrixBase<DERIVED>, 2);
+      DERIVED, 2);
 
-  Eigen::MatrixBase<DERIVED> & y =
-      const_cast<Eigen::MatrixBase<DERIVED> &>(yconst);
+  DERIVED & y =
+      const_cast<DERIVED &>(yconst);
   y.derived().resize(2);
 
   double mul2tanwby2 = tan(_w / 2.0) * 2.0;
@@ -117,28 +117,28 @@ void FovDistortion::undistort(
 
 template<typename DERIVED, typename DERIVED_JY>
 void FovDistortion::undistort(
-    const Eigen::MatrixBase<DERIVED> & /*yconst*/,
-    const Eigen::MatrixBase<DERIVED_JY> & /*outJy*/) const {
+    const DERIVED & /*yconst*/,
+    const DERIVED_JY & /*outJy*/) const {
   EIGEN_STATIC_ASSERT_VECTOR_SPECIFIC_SIZE_OR_DYNAMIC(
-      Eigen::MatrixBase<DERIVED>, 2);
+      DERIVED, 2);
   EIGEN_STATIC_ASSERT_MATRIX_SPECIFIC_SIZE_OR_DYNAMIC(
-      Eigen::MatrixBase<DERIVED_JY>, 2, 2);
+      DERIVED_JY, 2, 2);
 
   SM_ASSERT_TRUE(std::runtime_error, false, "Not implemented.");
 }
 
 template<typename DERIVED_Y, typename DERIVED_JD>
 void FovDistortion::distortParameterJacobian(
-    const Eigen::MatrixBase<DERIVED_Y> & y,
-    const Eigen::MatrixBase<DERIVED_JD> & outJd) const {
+    const DERIVED_Y & y,
+    const DERIVED_JD & outJd) const {
 
   EIGEN_STATIC_ASSERT_VECTOR_SPECIFIC_SIZE_OR_DYNAMIC(
-      Eigen::MatrixBase<DERIVED_Y>, 2);
+      DERIVED_Y, 2);
   EIGEN_STATIC_ASSERT_MATRIX_SPECIFIC_SIZE_OR_DYNAMIC(
-      Eigen::MatrixBase<DERIVED_JD>, 2, 4);
+      DERIVED_JD, 2, 4);
 
-  Eigen::MatrixBase<DERIVED_JD> & J =
-      const_cast<Eigen::MatrixBase<DERIVED_JD> &>(outJd);
+  DERIVED_JD & J =
+      const_cast<DERIVED_JD &>(outJd);
   J.derived().resize(2, 1);
   J.setZero();
 

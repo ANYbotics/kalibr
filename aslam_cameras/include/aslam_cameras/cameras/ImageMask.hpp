@@ -32,12 +32,11 @@ class ImageMask {
   Eigen::MatrixXi getMaskAsMatrix() const;
 
   template<typename DERIVED>
-  bool isValid(const Eigen::MatrixBase<DERIVED> & k) const {
+  bool isValid(const DERIVED & k) const {
     int k1 = k(1, 0) * _scale;
     int k0 = k(0, 0) * _scale;
-    // \todo fix this when it is initialized properly
+//     // \todo fix this when it is initialized properly
     return !_mask.data || (_mask.at<unsigned char>(k1, k0) > 0);
-    //return true;
   }
 
   // is the mask set? (i.e. mask data != NULL)

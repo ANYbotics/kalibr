@@ -28,7 +28,7 @@
 #endif
 
 #include <boost/archive/basic_archive.hpp>
-#include <boost/detail/endian.hpp>
+#include <boost/predef/other/endian.h>
 
 
 namespace boost {

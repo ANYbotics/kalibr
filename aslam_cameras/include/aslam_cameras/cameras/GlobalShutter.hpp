@@ -34,11 +34,11 @@ class GlobalShutter {
 
   template<typename DERIVED_K, typename DERIVED_J>
   void temporalOffsetIntrinsicsJacobian(
-      const Eigen::MatrixBase<DERIVED_K> & /* k */,
-      const Eigen::MatrixBase<DERIVED_J> & outJ) const {
-    Eigen::MatrixBase<DERIVED_J> & J =
-        const_cast<Eigen::MatrixBase<DERIVED_J> &>(outJ);
-    J.resize(0, 0);
+      const DERIVED_K & /* k */,
+      const DERIVED_J & outJ) const {
+      DERIVED_J & J =
+        const_cast<DERIVED_J &>(outJ);
+      J.resize(0, 0);
 
   }
 

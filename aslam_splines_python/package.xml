@@ -19,7 +19,7 @@
   <depend>aslam_splines</depend>
   <depend>aslam_time</depend>
   <depend>sm_numpy_eigen</depend>
-  <depend>python-scipy</depend>
+  <depend>python3-scipy</depend>
   <depend>sm_common</depend>
   <depend>sm_kinematics</depend>
   <depend>sm_logging</depend>

@@ -79,7 +79,7 @@ class Keypoint : public KeypointBase {
 
   /// \brief compute the mahalonibis distance between y and this keypoint
   template<typename DERIVED>
-  double mahalonibisDistance(const Eigen::MatrixBase<DERIVED> & y) const;
+  double mahalonibisDistance(const DERIVED & y) const;
 
   /// \brief get the image measurement inverse covariance
   const inverse_covariance_t & inverseMeasurementCovariance() const;

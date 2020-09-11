@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 import aslam_backend_python
 import aslam_splines_python
 import numpy

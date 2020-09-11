@@ -68,7 +68,7 @@ void addQuadraticIntegralErrorTerms(OptimizationProblem & problem, const TTime &
 	SM_ASSERT_TRUE_DBG(std::runtime_error, !integrator.isAtEnd(), "too few integration points given : " << numberOfPoints);
 
 	const double commonFactor = integrator.getCommonFactor();
-	for(; !integrator.isAtEnd(); integrator.next()){
+	for(; !integrator.isAtEnd(); next(integrator)){
 		double valueFactor = integrator.getValueFactor();
 		internal::addErrorTermToProblem(problem, errorTermFactory(integrator.getIntegrationScalar(), commonFactor * valueFactor), problemOwnsErrorTerms);
 	}

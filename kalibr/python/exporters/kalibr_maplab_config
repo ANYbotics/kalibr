@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import argparse
 from collections import OrderedDict
@@ -76,8 +76,7 @@ class ImuConfig:
     def parse_from_kalibr_format(self, imu_dict):
         assert 'imu0' in imu_dict, "No 'imu0' entry found in the IMU yaml file."
         if len(imu_dict) > 1:
-            print(
-                "Got more than one IMU. Taking configuration of 'imu0' entry.")
+            print("Got more than one IMU. Taking configuration of 'imu0' entry.")
         imu0_dict = imu_dict['imu0']
 
         self.rostopic = imu0_dict['rostopic']

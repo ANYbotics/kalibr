@@ -1,3 +1,3 @@
 import os
 
-from libsm_numpy_eigen import *
+from sm_numpy_eigen.libsm_numpy_eigen import *

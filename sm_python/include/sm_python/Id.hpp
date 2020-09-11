@@ -20,7 +20,7 @@ namespace sm { namespace python {
 
       // The "Convert from C to Python" API
       static PyObject * convert(id_t const & id){
-	PyObject * i = PyInt_FromLong(id.getId());
+	PyObject * i = PyLong_FromLong(id.getId());
     // It seems that the call to "incref(.)" caused a memory leak!
     // I will check this in hoping it doesn't cause any instability.
 	return i;//boost::python::incref(i);
@@ -30,7 +30,7 @@ namespace sm { namespace python {
       // Two functions: convertible() and construct()
       static void * convertible(PyObject* obj_ptr)
       {
-          if (!(PyInt_Check(obj_ptr) || PyLong_Check(obj_ptr)))
+          if (! PyLong_Check(obj_ptr) )
               return 0;
           
           return obj_ptr;
@@ -43,11 +43,7 @@ namespace sm { namespace python {
 
 	// Get the value.
           boost::uint64_t value;
-          if ( PyInt_Check(obj_ptr) ) {
-              value = PyInt_AsUnsignedLongLongMask(obj_ptr);
-          } else {
-              value = PyLong_AsUnsignedLongLong(obj_ptr);
-          }
+          value = PyLong_AsUnsignedLongLong(obj_ptr);
         
           void* storage = ((boost::python::converter::rvalue_from_python_storage<id_t>*)
                            data)->storage.bytes;

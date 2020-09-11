@@ -74,119 +74,119 @@ class CameraGeometry : public CameraGeometryBase {
   //////////////////////////////////////////////////////////////
   template<typename DERIVED_P, typename DERIVED_K>
   bool euclideanToKeypoint(
-      const Eigen::MatrixBase<DERIVED_P> & p,
-      const Eigen::MatrixBase<DERIVED_K> & outKeypoint) const;
+      const DERIVED_P & p,
+      const DERIVED_K & outKeypoint) const;
 
   template<typename DERIVED_P, typename DERIVED_K, typename DERIVED_JP>
-  bool euclideanToKeypoint(const Eigen::MatrixBase<DERIVED_P> & p,
-                           const Eigen::MatrixBase<DERIVED_K> & outKeypoint,
-                           const Eigen::MatrixBase<DERIVED_JP> & outJp) const;
+  bool euclideanToKeypoint(const DERIVED_P & p,
+                           const DERIVED_K & outKeypoint,
+                           const DERIVED_JP & outJp) const;
 
   template<typename DERIVED_P, typename DERIVED_K, typename DERIVED_JP>
   bool euclideanToKeypointFiniteDifference(
-      const Eigen::MatrixBase<DERIVED_P> & p,
-      const Eigen::MatrixBase<DERIVED_K> & outKeypoint,
-      const Eigen::MatrixBase<DERIVED_JP> & outJp) const;
+      const DERIVED_P & p,
+      const DERIVED_K & outKeypoint,
+      const DERIVED_JP & outJp) const;
 
   template<typename DERIVED_P, typename DERIVED_K>
   bool homogeneousToKeypoint(
-      const Eigen::MatrixBase<DERIVED_P> & p,
-      const Eigen::MatrixBase<DERIVED_K> & outKeypoint) const;
+      const DERIVED_P & p,
+      const DERIVED_K & outKeypoint) const;
 
   template<typename DERIVED_P, typename DERIVED_K, typename DERIVED_JP>
-  bool homogeneousToKeypoint(const Eigen::MatrixBase<DERIVED_P> & p,
-                             const Eigen::MatrixBase<DERIVED_K> & outKeypoint,
-                             const Eigen::MatrixBase<DERIVED_JP> & outJp) const;
+  bool homogeneousToKeypoint(const DERIVED_P & p,
+                             const DERIVED_K & outKeypoint,
+                             const DERIVED_JP & outJp) const;
 
   template<typename DERIVED_P, typename DERIVED_K, typename DERIVED_JP>
   bool homogeneousToKeypointFiniteDifference(
-      const Eigen::MatrixBase<DERIVED_P> & p,
-      const Eigen::MatrixBase<DERIVED_K> & outKeypoint,
-      const Eigen::MatrixBase<DERIVED_JP> & outJp) const;
+      const DERIVED_P & p,
+      const DERIVED_K & outKeypoint,
+      const DERIVED_JP & outJp) const;
 
   // Project the point and get the associated uncertainty of the projection.
   template<typename DERIVED_K>
   bool homogeneousToKeypoint(
       const sm::kinematics::UncertainHomogeneousPoint & p,
-      const Eigen::MatrixBase<DERIVED_K> & outKeypoint,
+      const DERIVED_K & outKeypoint,
       covariance_t & outProjectionUncertainty) const;
 
   // Project the point
   template<typename DERIVED_K>
   bool homogeneousToKeypoint(
       const sm::kinematics::HomogeneousPoint & p,
-      const Eigen::MatrixBase<DERIVED_K> & outKeypoint) const;
+      const DERIVED_K & outKeypoint) const;
 
   template<typename DERIVED_K, typename DERIVED_P>
-  bool keypointToEuclidean(const Eigen::MatrixBase<DERIVED_K> & keypoint,
-                           const Eigen::MatrixBase<DERIVED_P> & outPoint) const;
+  bool keypointToEuclidean(const DERIVED_K & keypoint,
+                           const DERIVED_P & outPoint) const;
 
   template<typename DERIVED_K, typename DERIVED_P, typename DERIVED_JK>
-  bool keypointToEuclidean(const Eigen::MatrixBase<DERIVED_K> & keypoint,
-                           const Eigen::MatrixBase<DERIVED_P> & outPoint,
-                           const Eigen::MatrixBase<DERIVED_JK> & outJk) const;
+  bool keypointToEuclidean(const DERIVED_K & keypoint,
+                           const DERIVED_P & outPoint,
+                           const DERIVED_JK & outJk) const;
 
   template<typename DERIVED_K, typename DERIVED_P, typename DERIVED_JK>
   bool keypointToEuclideanFiniteDifference(
-      const Eigen::MatrixBase<DERIVED_K> & keypoint,
-      const Eigen::MatrixBase<DERIVED_P> & outPoint,
-      const Eigen::MatrixBase<DERIVED_JK> & outJk) const;
+      const DERIVED_K & keypoint,
+      const DERIVED_P & outPoint,
+      const DERIVED_JK & outJk) const;
 
   template<typename DERIVED_K, typename DERIVED_P>
   bool keypointToHomogeneous(
-      const Eigen::MatrixBase<DERIVED_K> & keypoint,
-      const Eigen::MatrixBase<DERIVED_P> & outPoint) const;
+      const DERIVED_K & keypoint,
+      const DERIVED_P & outPoint) const;
 
   template<typename DERIVED_K, typename DERIVED_P, typename DERIVED_JK>
-  bool keypointToHomogeneous(const Eigen::MatrixBase<DERIVED_K> & keypoint,
-                             const Eigen::MatrixBase<DERIVED_P> & outPoint,
-                             const Eigen::MatrixBase<DERIVED_JK> & outJk) const;
+  bool keypointToHomogeneous(const DERIVED_K & keypoint,
+                             const DERIVED_P & outPoint,
+                             const DERIVED_JK & outJk) const;
 
   template<typename DERIVED_K, typename DERIVED_P, typename DERIVED_JK>
   bool keypointToHomogeneousFiniteDifference(
-      const Eigen::MatrixBase<DERIVED_K> & keypoint,
-      const Eigen::MatrixBase<DERIVED_P> & outPoint,
-      const Eigen::MatrixBase<DERIVED_JK> & outJk) const;
+      const DERIVED_K & keypoint,
+      const DERIVED_P & outPoint,
+      const DERIVED_JK & outJk) const;
 
   template<typename DERIVED_P, typename DERIVED_JI>
   void euclideanToKeypointIntrinsicsJacobian(
-      const Eigen::MatrixBase<DERIVED_P> & p,
-      const Eigen::MatrixBase<DERIVED_JI> & outJi) const;
+      const DERIVED_P & p,
+      const DERIVED_JI & outJi) const;
 
   template<typename DERIVED_P, typename DERIVED_JD>
   void euclideanToKeypointDistortionJacobian(
-      const Eigen::MatrixBase<DERIVED_P> & p,
-      const Eigen::MatrixBase<DERIVED_JD> & outJd) const;
+      const DERIVED_P & p,
+      const DERIVED_JD & outJd) const;
 
   template<typename DERIVED_P, typename DERIVED_JI>
   void euclideanToKeypointIntrinsicsJacobianFiniteDifference(
-      const Eigen::MatrixBase<DERIVED_P> & p,
-      const Eigen::MatrixBase<DERIVED_JI> & outJi) const;
+      const DERIVED_P & p,
+      const DERIVED_JI & outJi) const;
 
   template<typename DERIVED_P, typename DERIVED_JD>
   void euclideanToKeypointDistortionJacobianFiniteDifference(
-      const Eigen::MatrixBase<DERIVED_P> & p,
-      const Eigen::MatrixBase<DERIVED_JD> & outJd) const;
+      const DERIVED_P & p,
+      const DERIVED_JD & outJd) const;
 
   template<typename DERIVED_P, typename DERIVED_JI>
   void homogeneousToKeypointIntrinsicsJacobian(
-      const Eigen::MatrixBase<DERIVED_P> & p,
-      const Eigen::MatrixBase<DERIVED_JI> & outJi) const;
+      const DERIVED_P & p,
+      const DERIVED_JI & outJi) const;
 
   template<typename DERIVED_P, typename DERIVED_JI>
   void homogeneousToKeypointIntrinsicsJacobianFiniteDifference(
-      const Eigen::MatrixBase<DERIVED_P> & p,
-      const Eigen::MatrixBase<DERIVED_JI> & outJi) const;
+      const DERIVED_P & p,
+      const DERIVED_JI & outJi) const;
 
   template<typename DERIVED_P, typename DERIVED_JS>
   void homogeneousToKeypointDistortionJacobian(
-      const Eigen::MatrixBase<DERIVED_P> & p,
-      const Eigen::MatrixBase<DERIVED_JS> & outJs) const;
+      const DERIVED_P & p,
+      const DERIVED_JS & outJs) const;
 
   template<typename DERIVED_P, typename DERIVED_JD>
   void homogeneousToKeypointDistortionJacobianFiniteDifference(
-      const Eigen::MatrixBase<DERIVED_P> & p,
-      const Eigen::MatrixBase<DERIVED_JD> & outJd) const;
+      const DERIVED_P & p,
+      const DERIVED_JD & outJd) const;
 
   //////////////////////////////////////////////////////////////
   // SHUTTER SUPPORT
@@ -195,7 +195,7 @@ class CameraGeometry : public CameraGeometryBase {
   // The amount of time elapsed between the start of the image and the
   // keypoint. For a global shutter camera, this can return Duration(0).
   template<typename DERIVED_K>
-  Duration temporalOffset(const Eigen::MatrixBase<DERIVED_K> & keypoint) const;
+  Duration temporalOffset(const DERIVED_K & keypoint) const;
 
   virtual Duration temporalOffset(const Eigen::VectorXd & keypoint) const;
 
@@ -204,13 +204,13 @@ class CameraGeometry : public CameraGeometryBase {
   //////////////////////////////////////////////////////////////
 
   template<typename DERIVED_K>
-  bool isValid(const Eigen::MatrixBase<DERIVED_K> & keypoint) const;
+  bool isValid(const DERIVED_K & keypoint) const;
 
   template<typename DERIVED_P>
-  bool isEuclideanVisible(const Eigen::MatrixBase<DERIVED_P> & p) const;
+  bool isEuclideanVisible(const DERIVED_P & p) const;
 
   template<typename DERIVED_P>
-  bool isHomogeneousVisible(const Eigen::MatrixBase<DERIVED_P> & ph) const;
+  bool isHomogeneousVisible(const DERIVED_P & ph) const;
 
   //////////////////////////////////////////////////////////////
   // SUPERCLASS SUPPORT
