@@ -16,7 +16,7 @@ class Progress(object):
             self.elapsed = time.time() - self.startTime
             timePerRun = self.elapsed / self.iteration
             totalTime = self.numIterations * timePerRun
-        
+
             print("Progress %d / %d" % (self.iteration, self.numIterations))
             print("Time %s / %s  (%s * %d) " % (datetime.timedelta(seconds=self.elapsed), datetime.timedelta(seconds=totalTime), datetime.timedelta(seconds=timePerRun), self.numIterations))
 
@@ -56,20 +56,19 @@ class Progress2(object):
             self.elapsed = time.time() - self.startTime
             timePerRun = self.elapsed / self.iteration
             totalTime = self.numIterations * timePerRun
-            
+
             m, s = divmod(totalTime-self.elapsed, 60)
             h, m = divmod(m, 60)
             t_remaining_str = ""
             if h > 0: t_remaining_str = "%d h " % h
             if m > 0: t_remaining_str = t_remaining_str + "%dm " % m
             if s > 0: t_remaining_str = t_remaining_str + "%ds" % s
-            print("\r  Progress {0} / {1} \t Time remaining: {2}                 ".format(self.iteration, self.numIterations, t_remaining_str),
-            sys.stdout.flush())
+            print("\r  Progress {0} / {1} \t Time remaining: {2}                 ".format(self.iteration, self.numIterations, t_remaining_str), end='\r')
         else:
             self.startTime = time.time()
             self.iteration = 0
             self.started = True
-        
+
     def reset(self, numIterations = -1):
         """
         Reset the progress tracker
