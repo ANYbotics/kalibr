@@ -12,6 +12,7 @@
   <author email="jerome.maye@mavt.ethz.ch">Jerome Maye</author>
 
   <buildtool_depend>catkin</buildtool_depend>
+<!--   <build_depend>cmake_clang_tools</build_depend> -->
 
   <depend>aslam_backend</depend>
   <depend>eigen</depend>

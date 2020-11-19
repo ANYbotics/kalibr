@@ -3,6 +3,8 @@ project(aslam_cv_python)
 
 add_definitions( -fPIC -w -std=c++0x)
 
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 set(CATKIN_PACKAGE_DEPENDENCIES
   aslam_cameras
   aslam_cv_serialization
@@ -119,3 +121,13 @@ if(CATKIN_ENABLE_TESTING)
     )
   endif()
 endif()
+
+#################
+## Clang_tools ##
+#################
+find_package(cmake_clang_tools QUIET)
+if(cmake_clang_tools_FOUND)
+  add_default_clang_tooling(
+    DISABLE_CLANG_FORMAT
+  )
+endif(cmake_clang_tools_FOUND)

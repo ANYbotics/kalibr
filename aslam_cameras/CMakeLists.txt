@@ -4,6 +4,8 @@ project(aslam_cameras)
 add_compile_options(-w)
 add_definitions(-DASLAM_USE_ROS )
 
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 set(CATKIN_PACKAGE_DEPENDENCIES
   aslam_time
   sm_common
@@ -153,3 +155,13 @@ if(CATKIN_ENABLE_TESTING)
     )
   endif()
 endif()
+
+#################
+## Clang_tools ##
+#################
+find_package(cmake_clang_tools QUIET)
+if(cmake_clang_tools_FOUND)
+  add_default_clang_tooling(
+    DISABLE_CLANG_FORMAT
+  )
+endif(cmake_clang_tools_FOUND)

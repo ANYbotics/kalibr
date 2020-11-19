@@ -3,6 +3,8 @@ project(sm_timing)
 
 add_compile_options(-w)
 
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 set(CATKIN_PACKAGE_DEPENDENCIES
   sm_common
   sm_random
@@ -115,3 +117,13 @@ if(CATKIN_ENABLE_TESTING)
     )
   endif()
 endif()
+
+#################
+## Clang_tools ##
+#################
+find_package(cmake_clang_tools QUIET)
+if(cmake_clang_tools_FOUND)
+  add_default_clang_tooling(
+    DISABLE_CLANG_FORMAT
+  )
+endif(cmake_clang_tools_FOUND)

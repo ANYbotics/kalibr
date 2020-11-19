@@ -5,6 +5,8 @@ SET(CMAKE_CXX_FLAGS "-std=c++0x")
 add_compile_options(-w)
 SET(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR}/cmake_modules)
 
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 set(CATKIN_PACKAGE_DEPENDENCIES
   aslam_backend
   aslam_sparse_block_matrix
@@ -164,3 +166,13 @@ if(CATKIN_ENABLE_TESTING)
     )
   endif()
 endif()
+
+#################
+## Clang_tools ##
+#################
+find_package(cmake_clang_tools QUIET)
+if(cmake_clang_tools_FOUND)
+  add_default_clang_tooling(
+    DISABLE_CLANG_FORMAT
+  )
+endif(cmake_clang_tools_FOUND)
