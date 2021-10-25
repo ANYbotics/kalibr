@@ -1,7 +1,4 @@
 import numpy
-import pylab as p
-
-import matplotlib.axes as axes
 
 def plotCoordinateFrame(axis, T_0f, size=1, linewidth=3):
     """Plot a coordinate frame on a 3d axis. In the resulting plot,

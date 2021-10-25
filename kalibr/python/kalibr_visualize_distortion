@@ -4,9 +4,7 @@ import argparse
 import kalibr_common as kc
 import math
 import matplotlib.pyplot as plt
-import matplotlib.image as mpimg
 import numpy as np
-import sm_python
 
 
 def parse_arguments():

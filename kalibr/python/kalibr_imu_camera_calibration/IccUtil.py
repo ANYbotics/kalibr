@@ -3,9 +3,6 @@ import kalibr_imu_camera_calibration.IccPlots as plots
 import numpy as np
 import pylab as pl
 import sys
-import subprocess
-import yaml
-import time
 from matplotlib.backends.backend_pdf import PdfPages
 from io import StringIO
 import matplotlib.patches as patches

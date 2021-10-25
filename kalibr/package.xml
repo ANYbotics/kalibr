@@ -20,7 +20,9 @@
   <depend>aslam_sparse_block_matrix</depend>
   <depend>aslam_splines_python</depend>
   <depend>aslam_incremental_calibration_python</depend>
+  <!-- Basic Linear Algebra Subroutines 3, static library -->
   <depend>libblas-dev</depend>
+  <!-- Library of linear algebra routines 3 - static version-->
   <depend>liblapack-dev</depend>
   <depend>sm_numpy_eigen</depend>
   <depend>python3-igraph</depend>

@@ -2,13 +2,10 @@
 import kalibr_common as kc
 
 import numpy as np
-import pylab as pl
 import sm_python
 import argparse
-import sys
 import rospkg
 
-from matplotlib.colors import LogNorm 
 np.set_printoptions(suppress=True)
 
 #That's how the output should should look like:

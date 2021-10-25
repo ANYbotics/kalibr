@@ -2,15 +2,11 @@
 import kalibr_common as kc
 
 import numpy as np
-import pylab as pl
 import sm_python
 import argparse
-import sys
 import rospkg
 import yaml
 
-from matplotlib.colors import LogNorm 
-from sm_python.libsm_python import Transformation
 np.set_printoptions(suppress=True)
     
 if __name__ == "__main__":        
