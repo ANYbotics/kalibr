@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package format="2">
   <name>aslam_backend_expressions</name>
-  <version>0.0.3</version>
+  <version>0.0.4</version>
   <description>aslam_backend_expressions</description>
 
   <maintainer email="ynava@anybotics.com">Yoshua Nava</maintainer>
