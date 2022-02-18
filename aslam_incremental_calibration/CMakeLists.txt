@@ -106,7 +106,7 @@ target_link_libraries(${PROJECT_NAME}
 #     test/LinearSolverTest.cpp
 #   )
 
-#   target_link_libraries(${PROJECT_NAME}_test 
+#   target_link_libraries(${PROJECT_NAME}_test
 #     ${PROJECT_NAME}
 #   )
 
@@ -160,9 +160,9 @@ endif()
 #################
 ## Clang_tools ##
 #################
-find_package(cmake_clang_tools QUIET)
-if(cmake_clang_tools_FOUND)
-  add_default_clang_tooling(
-    DISABLE_CLANG_FORMAT
-  )
-endif(cmake_clang_tools_FOUND)
+#find_package(cmake_clang_tools QUIET)
+#if(cmake_clang_tools_FOUND)
+#  add_default_clang_tooling(
+#    DISABLE_CLANG_FORMAT
+#  )
+#endif(cmake_clang_tools_FOUND)

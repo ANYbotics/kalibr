@@ -73,7 +73,7 @@ target_link_libraries(${PROJECT_NAME}_errorterms_python
 #     test/test_main.cpp
 #     test/TestErrorTerms.cpp
 #   )
-  
+
 #   target_link_libraries(${PROJECT_NAME}_test
 #     ${PROJECT_NAME}_errorterms
 #   )
@@ -134,9 +134,9 @@ endif()
 #################
 ## Clang_tools ##
 #################
-find_package(cmake_clang_tools QUIET)
-if(cmake_clang_tools_FOUND)
-  add_default_clang_tooling(
-    DISABLE_CLANG_FORMAT
-  )
-endif(cmake_clang_tools_FOUND)
+#find_package(cmake_clang_tools QUIET)
+#if(cmake_clang_tools_FOUND)
+#  add_default_clang_tooling(
+#    DISABLE_CLANG_FORMAT
+#  )
+#endif(cmake_clang_tools_FOUND)

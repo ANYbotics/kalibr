@@ -97,7 +97,7 @@ target_link_libraries(${PROJECT_NAME}
 #       test/Triangulation.cpp
 #       test/testFrame.cpp
 #       test/GridCalibration.cpp
-#     WORKING_DIRECTORY 
+#     WORKING_DIRECTORY
 #       ${PROJECT_SOURCE_DIR}/test
 #   )
 
@@ -128,7 +128,7 @@ install(
 ##############
 ##   Test   ##
 ##############
-if(CATKIN_ENABLE_TESTING) 
+if(CATKIN_ENABLE_TESTING)
   catkin_add_gtest(test_${PROJECT_NAME}
     test/empty_test.cpp
   )
@@ -159,9 +159,9 @@ endif()
 #################
 ## Clang_tools ##
 #################
-find_package(cmake_clang_tools QUIET)
-if(cmake_clang_tools_FOUND)
-  add_default_clang_tooling(
-    DISABLE_CLANG_FORMAT
-  )
-endif(cmake_clang_tools_FOUND)
+#find_package(cmake_clang_tools QUIET)
+#if(cmake_clang_tools_FOUND)
+#  add_default_clang_tooling(
+#    DISABLE_CLANG_FORMAT
+#  )
+#endif(cmake_clang_tools_FOUND)

@@ -50,7 +50,7 @@ include_directories(
 )
 
 add_python_export_library(${PROJECT_NAME} python/aslam_cv_backend_python
-  src/module.cpp  
+  src/module.cpp
   src/GridCalibration.cpp
   # src/CameraGeometryDesignVariableContainer.cpp
 #  src/NCameraSystemDesignVariableContainer.cpp
@@ -104,9 +104,9 @@ endif()
 #################
 ## Clang_tools ##
 #################
-find_package(cmake_clang_tools QUIET)
-if(cmake_clang_tools_FOUND)
-  add_default_clang_tooling(
-    DISABLE_CLANG_FORMAT
-  )
-endif(cmake_clang_tools_FOUND)
+#find_package(cmake_clang_tools QUIET)
+#if(cmake_clang_tools_FOUND)
+#  add_default_clang_tooling(
+#    DISABLE_CLANG_FORMAT
+#  )
+#endif(cmake_clang_tools_FOUND)
