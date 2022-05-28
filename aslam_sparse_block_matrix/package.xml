@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package format="2">
   <name>aslam_sparse_block_matrix</name>
-  <version>0.0.6</version>
+  <version>0.0.7</version>
   <description>aslam_sparse_block_matrix</description>
 
   <maintainer email="ynava@anybotics.com">Yoshua Nava</maintainer>

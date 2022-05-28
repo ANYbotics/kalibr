@@ -2,7 +2,7 @@
 <package format="2">
   <name>aslam_apriltag2</name>
   <description>aslam_apriltag2</description>
-  <version>0.0.6</version>
+  <version>0.0.7</version>
   <maintainer email="ynava@anybotics.com">Yoshua Nava</maintainer>
   <maintainer email="gzhou@anybotics.com">Guoxiang Zhou</maintainer>
   <author>Paul Furgale</author>
