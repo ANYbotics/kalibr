@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package format="2">
   <name>aslam_time</name>
-  <version>0.0.8</version>
+  <version>0.0.9</version>
   <description>library abstracting time</description>
   <maintainer email="ynava@anybotics.com">Yoshua Nava</maintainer>
   <maintainer email="gzhou@anybotics.com">Guoxiang Zhou</maintainer>
