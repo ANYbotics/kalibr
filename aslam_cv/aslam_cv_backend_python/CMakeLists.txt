@@ -1,51 +1,30 @@
-cmake_minimum_required(VERSION 2.8.3)
+cmake_minimum_required(VERSION 3.0.2)
 project(aslam_cv_backend_python)
 
-add_compile_options(-w)
-SET(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR}/cmake_modules)
-
-set(CATKIN_PACKAGE_DEPENDENCIES
+find_package(catkin REQUIRED COMPONENTS
+  sm_common
+  sm_python
+  sm_opencv
+  numpy_eigen
+  python_module
+  sparse_block_matrix
   aslam_backend
   aslam_backend_expressions
   aslam_backend_python
+  opencv2_catkin
   aslam_cameras
-  aslam_cv_backend
   aslam_cv_error_terms
-  aslam_cv_python
-  aslam_time
   aslam_splines
-  numpy_eigen
-  python_module
-  sm_common
-  sm_opencv
-  sm_python
-  sparse_block_matrix
+  aslam_cv_python
+  aslam_cv_backend
+  aslam_time
 )
-
-find_package(catkin REQUIRED
-  COMPONENTS
-    ${CATKIN_PACKAGE_DEPENDENCIES}
-)
-
-find_package(SUITESPARSE REQUIRED)
 
 catkin_package(
-  INCLUDE_DIRS
-    include
-  LIBRARIES
-    ${PROJECT_NAME}
-  CATKIN_DEPENDS
-    ${CATKIN_PACKAGE_DEPENDENCIES}
-  DEPENDS
-    SUITESPARSE
+  INCLUDE_DIRS include
 )
 
-include_directories(
-  include
-  SYSTEM
-    ${catkin_INCLUDE_DIRS}
-    ${SUITESPARSE_INCLUDE_DIRS}
-)
+include_directories(include ${catkin_INCLUDE_DIRS})
 
 add_python_export_library(${PROJECT_NAME} python/aslam_cv_backend
   src/module.cpp  
@@ -54,16 +33,9 @@ add_python_export_library(${PROJECT_NAME} python/aslam_cv_backend
 #  src/NCameraSystemDesignVariableContainer.cpp
 )
 
-install(
-  TARGETS
-    ${PROJECT_NAME}
-  ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-)
-
-install(
-  DIRECTORY
-    include/${PROJECT_NAME}/
-  DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
+##################
+## Installation ##
+##################
+install(DIRECTORY include/
+  DESTINATION ${CATKIN_GLOBAL_INCLUDE_DESTINATION}
 )

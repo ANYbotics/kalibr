@@ -1,45 +1,26 @@
-cmake_minimum_required(VERSION 2.8.3)
+cmake_minimum_required(VERSION 3.0.2)
 project(aslam_backend_python)
 
-add_definitions(-fPIC -w -std=c++0x)
+set(CMAKE_CXX_STANDARD 14)
+add_definitions(-fPIC -Wextra -Winit-self -Woverloaded-virtual -Wnon-virtual-dtor -Wsign-promo -Wno-long-long)
 
-set(CATKIN_PACKAGE_DEPENDENCIES
+find_package(Boost REQUIRED COMPONENTS thread) 
+find_package(catkin REQUIRED COMPONENTS
   aslam_backend
   aslam_backend_expressions
   numpy_eigen
   python_module
+  sparse_block_matrix
   sm_common
   sm_kinematics
   sm_timing
-  sparse_block_matrix
 )
-
-find_package(catkin REQUIRED
-  COMPONENTS
-    ${CATKIN_PACKAGE_DEPENDENCIES}
-)
-
-find_package(Eigen3 REQUIRED)
-find_package(Boost REQUIRED COMPONENTS thread)
 
 catkin_package(
-  INCLUDE_DIRS
-    include
-  LIBRARIES
-    ${PROJECT_NAME}
-  CATKIN_DEPENDS
-    ${CATKIN_PACKAGE_DEPENDENCIES}
-  DEPENDS
-    Boost
+  INCLUDE_DIRS include
 )
 
-include_directories(
-  include
-  SYSTEM
-    ${catkin_INCLUDE_DIRS}
-    ${EIGEN3_INCLUDE_DIR}
-    ${Boost_INCLUDE_DIRS}
-)
+include_directories(include ${catkin_INCLUDE_DIRS})
 
 # This functions take TARGET_NAME PYTHON_MODULE_DIRECTORY sourceFile1 [sourceFile2 ...]
 add_python_export_library(${PROJECT_NAME} python/aslam_backend
@@ -59,22 +40,11 @@ add_python_export_library(${PROJECT_NAME} python/aslam_backend
   src/TrustRegionPolicies.cpp
   src/SparseBlockMatrix.cpp
 )
+target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES} ${Boost_LIBRARIES})
 
-target_link_libraries(${PROJECT_NAME}
-  ${catkin_LIBRARIES}
-  ${Boost_LIBRARIES}
-)
-
-install(
-  TARGETS
-    ${PROJECT_NAME}
-  ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-)
-
-install(
-  DIRECTORY
-    include/${PROJECT_NAME}/
-  DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
+##################
+## Installation ##
+##################
+install(DIRECTORY include/
+  DESTINATION ${CATKIN_GLOBAL_INCLUDE_DESTINATION}
 )

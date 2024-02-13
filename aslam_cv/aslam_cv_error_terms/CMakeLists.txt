@@ -1,70 +1,44 @@
-cmake_minimum_required(VERSION 2.8.3)
+cmake_minimum_required(VERSION 3.0.2)
 project(aslam_cv_error_terms)
 
-add_definitions(-w)
-SET(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR}/cmake_modules)
-
-set(CATKIN_PACKAGE_DEPENDENCIES
-  aslam_backend
-  aslam_backend_expressions
-  aslam_cameras
-  aslam_cv_backend
-  aslam_splines
+find_package(Boost REQUIRED COMPONENTS system)
+find_package(catkin REQUIRED COMPONENTS
+  sm_logging
+  sm_property_tree
+  sm_opencv
+  sm_kinematics
   aslam_time
+  aslam_cameras
+  aslam_backend
+  aslam_cv_backend
+  aslam_backend_expressions
   sm_boost
   sm_eigen
-  sm_kinematics
-  sm_logging
-  sm_opencv
-  sm_property_tree
   sm_timing
   sparse_block_matrix
+  opencv2_catkin
+  aslam_splines
 )
-
-find_package(catkin REQUIRED
-  COMPONENTS
-    ${CATKIN_PACKAGE_DEPENDENCIES}
-)
-
-find_package(SUITESPARSE REQUIRED)
-find_package(Boost REQUIRED COMPONENTS system)
 
 catkin_package(
-  INCLUDE_DIRS
-    include
-  CATKIN_DEPENDS
-    ${CATKIN_PACKAGE_DEPENDENCIES}
-  DEPENDS
-    SUITESPARSE
-    Boost
-)
-
-include_directories(
-  include
-  SYSTEM
-    ${catkin_INCLUDE_DIRS}
-    ${SUITESPARSE_INCLUDE_DIRS}
-    ${Boost_INCLUDE_DIRS}
+  INCLUDE_DIRS include
 )
 
 if(CATKIN_ENABLE_TESTING)
-
-# Avoid clash with tr1::tuple: https://code.google.com/p/googletest/source/browse/trunk/README?r=589#257
+  # Avoid clash with tr1::tuple: https://code.google.com/p/googletest/source/browse/trunk/README?r=589#257
   add_definitions(-DGTEST_USE_OWN_TR1_TUPLE=0)
 
-  catkin_add_gtest(${PROJECT_NAME}_test
-    test/test_main.cpp
-    test/TestReprojectionError.cpp
-  )
-  target_link_libraries(${PROJECT_NAME}_test
-    ${catkin_LIBRARIES}
-    ${Boost_LIBRARIES}
-  )
-
+  include_directories(include ${catkin_INCLUDE_DIRS})
+  # catkin_add_gtest(${PROJECT_NAME}_test
+  #   test/test_main.cpp
+  #   test/TestReprojectionError.cpp
+  # )
+  # target_link_libraries(${PROJECT_NAME}_test ${catkin_LIBRARIES} ${Boost_LIBRARIES})
 endif()
 
-install(
-  DIRECTORY
-    include/${PROJECT_NAME}/
-  DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
+##################
+## Installation ##
+##################
+install(DIRECTORY include/
+  DESTINATION ${CATKIN_GLOBAL_INCLUDE_DESTINATION}
 )

@@ -1,6 +1,57 @@
 import numpy as np
 import pylab as pl
 
+
+def plotIMURates(cself, iidx, fno=1, clearFigure=True, noShow=False):   
+    #timestamps we have me
+    imu = cself.ImuList[iidx]
+    bodyspline = cself.poseDv.spline()   
+    timestamps = np.array([im.stamp.toSec() + imu.timeOffset for im in imu.imuData \
+                      if im.stamp.toSec() + imu.timeOffset > bodyspline.t_min() \
+                      and im.stamp.toSec() + imu.timeOffset < bodyspline.t_max() ])
+    
+
+    scale = 1000.0
+    unit = "ms"
+    z_thresh = 1.2
+
+    #calculate the relative rate between readings
+    times = []
+    rates = []
+    for idx in range(1,len(timestamps)):
+        times.append(timestamps[idx] - timestamps[0])
+        rates.append(scale * (timestamps[idx] - timestamps[idx-1]))
+    rate_avg = np.average(rates)
+    rate_std = np.std(rates)
+    
+    #loop through and so z-test to find outliers
+    #https://en.wikipedia.org/wiki/Z-test
+    sizes = []
+    colors = []
+    for idx in range(0,len(rates)):
+        rate = rates[idx]
+        #if (abs(rate - rate_avg)/rate_std) > z_thresh:
+        #    sizes.append(5)
+        #    colors.append("r")
+        #else:
+        sizes.append(1)
+        colors.append("b")
+        # rates[idx] = abs(rate - rate_avg)
+        rates[idx] = rate
+
+    #plot it    
+    f = pl.figure(fno)
+    if clearFigure:
+        f.clf()
+    f.suptitle("imu{0}: sample inertial rate".format(iidx))
+    pl.scatter(times, rates, s=sizes, c=colors, marker="x")
+    pl.text(0.1, 0.9, 'avg dt ('+unit+') = {:.2f} +- {:.4f}'.format(rate_avg, rate_std), fontsize=12, transform=f.gca().transAxes)
+    pl.grid('on')
+    pl.xlabel("time (s)")
+    pl.ylabel("sample rate ("+unit+")")
+    f.gca().set_xlim((min(times), max(times)))
+    f.gca().set_ylim((0.0, max(rates)))
+
 def plotGyroError(cself, iidx, fno=1, clearFigure=True, noShow=False):
     errors = np.array([np.dot(re.error(), re.error()) for re in  cself.ImuList[iidx].gyroErrors])
    
@@ -33,7 +84,7 @@ def plotGyroErrorPerAxis(cself, iidx, fno=1, clearFigure=True, noShow=False):
         f.clf()
     f.suptitle("imu{0}: angular velocities error".format(iidx))
     
-    for i in xrange(3):
+    for i in range(3):
         pl.subplot(3, 1, i+1)
         pl.plot(errors[:,i])
         pl.xlabel('error index')
@@ -76,7 +127,7 @@ def plotAccelErrorPerAxis(cself, iidx, fno=1, clearFigure=True, noShow=False):
         f.clf()
     f.suptitle("imu{0}: acceleration error".format(iidx))
     
-    for i in xrange(3):
+    for i in range(3):
         pl.subplot(3, 1, i+1)
         pl.plot(errors[:,i])
         pl.xlabel('error index')
@@ -102,7 +153,7 @@ def plotAccelBias(cself, imu_idx, fno=1, clearFigure=True, noShow=False):
 
     sigma_rw = cself.ImuList[imu_idx].getImuConfig().getAccelerometerStatistics()[1]
     bounds = 3. * sigma_rw * np.sqrt(times)
-    for i in xrange(3):
+    for i in range(3):
         pl.subplot(3, 1, i+1)
         pl.plot(times, acc_bias_spline[i,0] + bounds, 'r--')
         pl.plot(times, acc_bias_spline[i,0] - bounds, 'r--')
@@ -122,7 +173,7 @@ def plotAngularVelocityBias(cself, imu_idx, fno=1, clearFigure=True, noShow=Fals
 
     sigma_rw = cself.ImuList[imu_idx].getImuConfig().getGyroStatistics()[1]
     bounds = 3. * sigma_rw * np.sqrt(times)
-    for i in xrange(3):
+    for i in range(3):
         pl.subplot(3, 1, i+1)
         pl.plot(times, gyro_bias_spline[i,0] + bounds, 'r--')
         pl.plot(times, gyro_bias_spline[i,0] - bounds, 'r--')
@@ -199,7 +250,7 @@ def plotVectorOverTime(times, values, title="", ylabel="", label="", fno=1, clea
         pl.grid('on')
         pl.xlabel("time (s)")
         pl.ylabel(ylabel)
-        if label is not "":
+        if label != "":
             pl.legend()
 
 def plotReprojectionScatter(cself, cam_id, fno=1, clearFigure=True, noShow=False, title=""):
@@ -255,7 +306,7 @@ class CameraPlot:
         #interactive mode
         pl.ion()
         #hack to enforce axis equal (matplotlib doesn't support that)
-        self.ax.set_aspect('equal')
+        #self.ax.set_aspect('equal')
         MAX = 1
         for direction in (-1, 1):
             for point in np.diag(direction * MAX * np.array([1,1,1])):

@@ -1,67 +1,40 @@
-cmake_minimum_required(VERSION 2.8.3)
+cmake_minimum_required(VERSION 3.0.2)
 project(aslam_splines_python)
 
-add_definitions(-w)
-SET(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR}/cmake_modules)
-
-set(CATKIN_PACKAGE_DEPENDENCIES
-  aslam_backend
-  aslam_backend_expressions
-  aslam_backend_python
-  aslam_cameras
+find_package(catkin REQUIRED COMPONENTS
   aslam_splines
-  aslam_time
-  bsplines
   bsplines_python
+  bsplines
   numpy_eigen
   python_module
+  sparse_block_matrix
   sm_common
   sm_kinematics
-  sm_logging
+  aslam_backend_expressions
+  aslam_backend
+  aslam_backend_python
+  sm_timing
+  aslam_cameras
+  aslam_time
   sm_opencv
   sm_property_tree
-  sm_timing
-  sparse_block_matrix
+  sm_logging
+  opencv2_catkin
 )
 
-find_package(catkin REQUIRED
-  COMPONENTS
-    ${CATKIN_PACKAGE_DEPENDENCIES}
-)
+catkin_package()
 
-find_package(SUITESPARSE REQUIRED)
-
-catkin_package(
-  LIBRARIES
-    ${PROJECT_NAME}
-  CATKIN_DEPENDS
-    ${CATKIN_PACKAGE_DEPENDENCIES}
-  DEPENDS
-    SUITESPARSE
-)
-
-include_directories(
-  SYSTEM
-    ${catkin_INCLUDE_DIRS}
-    ${SUITESPARSE_INCLUDE_DIRS}
-)
+include_directories(${catkin_INCLUDE_DIRS})
 
 add_python_export_library(${PROJECT_NAME} python/aslam_splines
   src/spline_module.cpp
   src/BSplineMotionError.cpp
   src/SimpleSplineError.cpp
 )
+target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES})
 
-install(
-  TARGETS
-    ${PROJECT_NAME}
-  ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-)
+##################
+## Installation ##
+##################
 
-install(
-  DIRECTORY
-    include/${PROJECT_NAME}/
-  DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
-)
+# handled by add_python_export_library

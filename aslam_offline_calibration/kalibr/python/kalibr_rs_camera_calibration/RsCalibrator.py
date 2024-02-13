@@ -5,15 +5,17 @@ import aslam_cv_backend as acvb
 import aslam_cv as acv
 import aslam_splines as asp
 import incremental_calibration as inc
+from kalibr_common import ConfigReader as cr
 import bsplines
 import numpy as np
 import multiprocessing
+import os
 import sys
 import gc
 import math
-from ReprojectionErrorKnotSequenceUpdateStrategy import *
-from RsPlot import plotSpline
-from RsPlot import plotSplineValues
+from .ReprojectionErrorKnotSequenceUpdateStrategy import *
+from .RsPlot import plotSpline
+from .RsPlot import plotSplineValues
 import pylab as pl
 import pdb
 
@@ -21,6 +23,7 @@ import pdb
 np.set_printoptions(suppress=True)
 
 CALIBRATION_GROUP_ID = 0
+LANDMARK_GROUP_ID = 2
 
 class RsCalibratorConfiguration(object):
     deltaX = 1e-8
@@ -193,6 +196,7 @@ class RsCalibrator(object):
                 )
 
         self.__printResults()
+        self.__saveParametersYaml()
 
     def __generateExtrinsicsInitialGuess(self):
         """Estimate the pose of the camera with a PnP solver. Call after initializing the intrinsics"""
@@ -202,7 +206,7 @@ class RsCalibrator(object):
             if (success):
                 observation.set_T_t_c(T_t_c)
             else:
-                sm.logWarn("Could not estimate T_t_c for observation at index" . idx)
+                sm.logWarn("Could not estimate T_t_c for observation at index {0}".format(idx))
 
         return
 
@@ -253,8 +257,8 @@ class RsCalibrator(object):
         else:
             knots = int(round(seconds * framerate/3))
 
-        print
-        print "Initializing a pose spline with %d knots (%f knots per second over %f seconds)" % ( knots, 100, seconds)
+        print("")
+        print("Initializing a pose spline with %d knots (%f knots per second over %f seconds)" % ( knots, 100, seconds))
         poseSpline.initPoseSplineSparse(times, curve, knots, 1e-4)
 
         return poseSpline
@@ -280,13 +284,14 @@ class RsCalibrator(object):
         # add all the landmarks once
         landmarks = []
         landmarks_expr = []
-        for landmark in self.__observations[0].getCornersTargetFrame():
+        target = self.__cameraGeometry.ctarget.detector.target()
+        for idx in range(0, target.size()):
             # design variable for landmark
-            landmark_w_dv = aopt.HomogeneousPointDv(sm.toHomogeneous(landmark))
-            landmark_w_dv.setActive(self.__config.estimateParameters['landmarks']);
+            landmark_w_dv = aopt.HomogeneousPointDv(sm.toHomogeneous(target.point(idx)))
+            landmark_w_dv.setActive(self.__config.estimateParameters['landmarks'])
             landmarks.append(landmark_w_dv)
             landmarks_expr.append(landmark_w_dv.toExpression())
-            problem.addDesignVariable(landmark_w_dv, CALIBRATION_GROUP_ID)
+            problem.addDesignVariable(landmark_w_dv, LANDMARK_GROUP_ID)
 
         #####
         # activate design variables
@@ -313,7 +318,7 @@ class RsCalibrator(object):
         # add a reprojection error for every corner of each observation
         for observation in self.__observations:
             # only process successful observations of a pattern
-            if (observation.hasSuccessfulObservation()):
+            if observation.hasSuccessfulObservation():
                 # add a frame
                 frame = self.__cameraModelFactory.frameType()
                 frame.setGeometry(self.__camera)
@@ -322,7 +327,9 @@ class RsCalibrator(object):
 
                 #####
                 # add an error term for every observed corner
+                corner_ids = observation.getCornersIdx()
                 for index, point in enumerate(observation.getCornersImageFrame()):
+
                     # keypoint time offset by line delay as expression type
                     keypoint_time = self.__camera_dv.keypointTime(frame.time(), point)
 
@@ -335,16 +342,15 @@ class RsCalibrator(object):
                     T_t_w = T_w_t.inverse()
 
                     # transform target point to camera frame
-                    p_t = T_t_w * landmarks_expr[index]
+                    p_t = T_t_w * landmarks_expr[corner_ids[index]]
 
                     # create the keypoint
+                    keypoint_index = frame.numKeypoints()
                     keypoint = acv.Keypoint2()
                     keypoint.setMeasurement(point)
-                    inverseFeatureCovariance = self.__config.inverseFeatureCovariance;
+                    inverseFeatureCovariance = self.__config.inverseFeatureCovariance
                     keypoint.setInverseMeasurementCovariance(np.eye(len(point)) * inverseFeatureCovariance)
-                    keypoint.setLandmarkId(index)
                     frame.addKeypoint(keypoint)
-                    keypoint_index = frame.numKeypoints() - 1
 
                     # create reprojection error
                     reprojection_error = self.__buildErrorTerm(
@@ -400,7 +406,7 @@ class RsCalibrator(object):
                 if dist < best_dist:
                     best_r = aa
                     best_dist = dist
-            curve[3:6,i] = best_r;
+            curve[3:6,i] = best_r
 
     def __initPoseDesignVariables(self, problem):
         """Get the design variable representation of the pose spline and add them to the problem"""
@@ -415,14 +421,15 @@ class RsCalibrator(object):
     def __runOptimization(self, problem ,deltaJ, deltaX, maxIt):
         """Run the given optimization problem problem"""
 
-        print "run new optimisation with initial values:"
+        print("run new optimisation with initial values:")
         self.__printResults()
 
         # verbose and choldmod solving with schur complement trick
         options = aopt.Optimizer2Options()
         options.verbose = True
-        options.linearSolver = aopt.BlockCholeskyLinearSystemSolver()
+        options.nThreads = max(1,multiprocessing.cpu_count()-1)
         options.doSchurComplement = True
+        options.linearSolver = aopt.BlockCholeskyLinearSystemSolver()  #does not have multi-threading support
 
         # stopping criteria
         options.maxIterations = maxIt
@@ -446,13 +453,55 @@ class RsCalibrator(object):
         shutter = self.__camera_dv.shutterDesignVariable().value()
         proj = self.__camera_dv.projectionDesignVariable().value()
         dist = self.__camera_dv.distortionDesignVariable().value()
-        print
+        print("")
         if (self.__isRollingShutter()):
-            print "LineDelay:"
-            print shutter.lineDelay()
-        print "Intrinsics:"
-        print proj.getParameters().flatten()
-        #print "(",proj.fu(),", ",proj.fv(),") (",proj.cu(),", ",proj.cv(),")" #in the future, not all projection models might support these parameters
-        print "Distortion:"
-        print dist.getParameters().flatten()
-        #print "(",dist.p1(),", ",dist.p2(),") (",dist.k1(),", ",dist.k2(),")" #not all distortion models implement these parameters
+            print("LineDelay:")
+            print(shutter.lineDelay())
+        print("Intrinsics:")
+        print(proj.getParameters().flatten())
+        print("Distortion:")
+        print(dist.getParameters().flatten())
+
+    def __saveParametersYaml(self):
+        # Create new config file
+        bagtag = os.path.splitext(self.__cameraGeometry.dataset.bagfile)[0]
+        resultFile = bagtag + "-camchain.yaml"
+        chain = cr.CameraChainParameters(resultFile, createYaml=True)
+        camParams = cr.CameraParameters(resultFile, createYaml=True)
+        camParams.setRosTopic(self.__cameraGeometry.dataset.topic)
+
+        # Intrinsics
+        cameraModels = {
+            # Rolling shutter
+            acvb.DistortedPinholeRs: 'pinhole',
+            acvb.EquidistantPinholeRs: 'pinhole',
+            acvb.DistortedOmniRs: 'omni',
+            # Global shutter
+            acvb.DistortedPinhole: 'pinhole',
+            acvb.EquidistantPinhole: 'pinhole',
+            acvb.DistortedOmni: 'omni'}
+        cameraModel = cameraModels[self.__cameraGeometry.model]
+        proj = self.__camera_dv.projectionDesignVariable().value()
+        camParams.setIntrinsics(cameraModel, proj.getParameters().flatten())
+        camParams.setResolution([proj.ru(), proj.rv()])
+
+        # Distortion
+        distortionModels = {
+            # Rolling shutter
+            acvb.DistortedPinholeRs: 'radtan',
+            acvb.EquidistantPinholeRs: 'equidistant',
+            acvb.DistortedOmniRs: 'radtan',
+            # Global shutter
+            acvb.DistortedPinhole: 'radtan',
+            acvb.EquidistantPinhole: 'equidistant',
+            acvb.DistortedOmni: 'radtan'}
+        distortionModel = distortionModels[self.__cameraGeometry.model]
+        dist = self.__camera_dv.distortionDesignVariable().value()
+        camParams.setDistortion(distortionModel, dist.getParameters().flatten())
+
+        # Shutter
+        shutter = self.__camera_dv.shutterDesignVariable().value()
+        camParams.setLineDelay(shutter.lineDelay())
+
+        chain.addCameraAtEnd(camParams)
+        chain.writeYaml()

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<package format="2">
+<package>
   <name>aslam_backend</name>
   <version>0.0.1</version>
   <description>aslam_backend</description>
@@ -8,14 +8,20 @@
   <license>New BSD</license>
   <buildtool_depend>catkin</buildtool_depend>
 
-  <depend>sparse_block_matrix</depend>
-  <depend>sm_boost</depend>
-  <depend>sm_logging</depend>
-  <depend>sm_property_tree</depend>
-  <depend>sm_random</depend>
-  <depend>sm_timing</depend>
-  <depend>suitesparse</depend>
-  <depend>TBB</depend>
-  <depend>asl_cmake_modules</depend>
+  <build_depend>sparse_block_matrix</build_depend>
+  <build_depend>sm_boost</build_depend>
+  <build_depend>sm_random</build_depend>
+  <build_depend>sm_timing</build_depend>
+  <build_depend>sm_logging</build_depend>
+  <build_depend>sm_property_tree</build_depend>
+  <build_depend>suitesparse</build_depend>
+  <build_depend>tbb</build_depend>
 
+  <run_depend>sparse_block_matrix</run_depend>
+  <run_depend>sm_boost</run_depend>
+  <run_depend>sm_random</run_depend>
+  <run_depend>sm_timing</run_depend>
+  <run_depend>sm_logging</run_depend>
+  <run_depend>sm_property_tree</run_depend>
+  <run_depend>tbb</run_depend>
 </package>

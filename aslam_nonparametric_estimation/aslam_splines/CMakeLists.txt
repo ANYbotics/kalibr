@@ -1,85 +1,54 @@
-cmake_minimum_required(VERSION 2.8.3)
+cmake_minimum_required(VERSION 3.0.2)
 project(aslam_splines)
 
-add_definitions(-w)
-SET(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR}/cmake_modules)
-
-set(CATKIN_PACKAGE_DEPENDENCIES
+find_package(catkin REQUIRED COMPONENTS
   aslam_backend
   aslam_backend_expressions
   bsplines
   numpy_eigen
+  sparse_block_matrix
   sm_common
   sm_kinematics
   sm_timing
-  sparse_block_matrix
+  opencv2_catkin
 )
-
-find_package(catkin REQUIRED
-  COMPONENTS
-    ${CATKIN_PACKAGE_DEPENDENCIES}
-)
-
-find_package(SUITESPARSE REQUIRED)
 find_package(Boost REQUIRED COMPONENTS system)
 
 catkin_package(
-  INCLUDE_DIRS
-    include
-  LIBRARIES
-    ${PROJECT_NAME}
-  CATKIN_DEPENDS
-    ${CATKIN_PACKAGE_DEPENDENCIES}
-  DEPENDS
-    SUITESPARSE
-    Boost
+  LIBRARIES ${PROJECT_NAME}
+  INCLUDE_DIRS include
+  CATKIN_DEPENDS bsplines
 )
 
-include_directories(
-  include
-  SYSTEM
-    ${catkin_INCLUDE_DIRS}
-    ${SUITESPARSE_INCLUDE_DIRS}
-    ${Boost_INCLUDE_DIRS}
-)
+include_directories(include ${catkin_INCLUDE_DIRS})
 
 add_library(${PROJECT_NAME}
   src/BSplinePoseDesignVariable.cpp
   src/BSplineExpressions.cpp
   src/EuclideanBSplineDesignVariable.cpp
 )
-
-target_link_libraries(${PROJECT_NAME}
-  ${catkin_LIBRARIES}
-  ${SUITESPARSE_LIBRARIES}
-  ${Boost_LIBRARIES}
-)
+target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES} ${Boost_LIBRARIES})
 
 if(CATKIN_ENABLE_TESTING)
-
   catkin_add_gtest(${PROJECT_NAME}_test
     test/test_main.cpp
     test/TestBSplineExpressions.cpp
     test/TestErrors.cpp
     #  test/TestOPTBSpline.cpp
-  )
-
-  target_link_libraries(${PROJECT_NAME}_test
-    ${PROJECT_NAME}
-  )
-
+    )
+  target_link_libraries(${PROJECT_NAME}_test ${PROJECT_NAME})
 endif()
 
-install(
-  TARGETS
-    ${PROJECT_NAME}
+##################
+## Installation ##
+##################
+install(TARGETS ${PROJECT_NAME}
   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
-install(
-  DIRECTORY
-    include/${PROJECT_NAME}/
-  DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
+## Mark cpp header files for installation
+install(DIRECTORY include/
+  DESTINATION ${CATKIN_GLOBAL_INCLUDE_DESTINATION}
 )

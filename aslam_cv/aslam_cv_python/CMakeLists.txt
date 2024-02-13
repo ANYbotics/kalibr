@@ -1,47 +1,35 @@
-cmake_minimum_required(VERSION 2.8.3)
+cmake_minimum_required(VERSION 3.0.2)
 project(aslam_cv_python)
 
-add_definitions( -fPIC -w -std=c++0x)
+set(CMAKE_CXX_STANDARD 14)
 
-set(CATKIN_PACKAGE_DEPENDENCIES
-  aslam_cameras
-  aslam_cv_serialization
-  aslam_imgproc
-  aslam_time
-  python_module
+find_package(Boost REQUIRED COMPONENTS serialization) 
+find_package(catkin REQUIRED COMPONENTS
   sm_common
   sm_eigen
   sm_kinematics
-  sm_opencv
   sm_python
+  sm_opencv
+  opencv2_catkin
+  python_module
+  aslam_cv_serialization
+  aslam_imgproc
+  aslam_cameras
+  aslam_time
+  aslam_cv_serialization
 )
-
-find_package(catkin REQUIRED
-  COMPONENTS
-    ${CATKIN_PACKAGE_DEPENDENCIES}
-)
-
-find_package(OpenCV REQUIRED)
-find_package(Boost REQUIRED COMPONENTS serialization) 
 
 catkin_package(
-  INCLUDE_DIRS
-    include
-  LIBRARIES
-    ${PROJECT_NAME}
-  CATKIN_DEPENDS
-    ${CATKIN_PACKAGE_DEPENDENCIES}
-  DEPENDS
-    Boost
+  INCLUDE_DIRS include
 )
 
-include_directories(
-  include
-  SYSTEM
-    ${catkin_INCLUDE_DIRS}
-    ${OpenCV_INCLUDE_DIRS}
-    ${Boost_INCLUDE_DIRS}
-)
+add_definitions(-fPIC -Wextra -Winit-self -Woverloaded-virtual -Wnon-virtual-dtor -Wsign-promo -Wno-long-long)
+
+if(APPLE)
+  add_definitions( -ftemplate-depth-1024)
+endif()
+
+include_directories(include ${catkin_INCLUDE_DIRS})
 
 add_python_export_library(${PROJECT_NAME} python/aslam_cv
   src/module.cpp
@@ -68,23 +56,12 @@ add_python_export_library(${PROJECT_NAME} python/aslam_cv
   src/OmniUndistorter.cpp
   src/PinholeUndistorter.cpp
 )
+target_compile_options(${PROJECT_NAME} PUBLIC "-Wno-deprecated-copy") # TODO: Fix...
+target_link_libraries(${PROJECT_NAME} ${Boost_LIBRARIES})
 
-target_link_libraries(${PROJECT_NAME}
-  ${catkin_LIBRARIES}
-  ${OpenCV_LIBRARIES}
-  ${Boost_LIBRARIES}
-)
-
-install(
-  TARGETS
-    ${PROJECT_NAME}
-  ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-)
-
-install(
-  DIRECTORY
-    include/${PROJECT_NAME}/
-  DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
+##################
+## Installation ##
+##################
+install(DIRECTORY include/
+  DESTINATION ${CATKIN_GLOBAL_INCLUDE_DESTINATION}
 )

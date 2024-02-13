@@ -1,10 +1,9 @@
-cmake_minimum_required(VERSION 2.8.3)
+cmake_minimum_required(VERSION 3.0.2)
 project(sm_logging)
 
-add_compile_options(-w)
+set(CMAKE_CXX_STANDARD 14)
 
 find_package(catkin REQUIRED)
-
 find_package(Boost REQUIRED COMPONENTS system thread regex)
 
 catkin_package(
@@ -15,8 +14,6 @@ catkin_package(
 )
 
 include_directories(include ${catkin_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS})
-
-add_definitions(-std=c++0x)
 
 ##############
 ## Building ##
@@ -45,17 +42,14 @@ install(TARGETS ${PROJECT_NAME}
 )
 
 ## Mark cpp header files for installation
-install(DIRECTORY include/${PROJECT_NAME}/
-  DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
-  FILES_MATCHING PATTERN "*.hpp"
-  PATTERN ".svn" EXCLUDE
+install(DIRECTORY include/
+  DESTINATION ${CATKIN_GLOBAL_INCLUDE_DESTINATION}
 )
 
 #############
 ## Testing ##
 #############
 if(CATKIN_ENABLE_TESTING)
-
   # Avoid clash with tr1::tuple: https://code.google.com/p/googletest/source/browse/trunk/README?r=589#257
   add_definitions(-DGTEST_USE_OWN_TR1_TUPLE=0)
 
@@ -65,5 +59,4 @@ if(CATKIN_ENABLE_TESTING)
   if(TARGET ${PROJECT_NAME}-test)
     target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
   endif()
-
 endif()

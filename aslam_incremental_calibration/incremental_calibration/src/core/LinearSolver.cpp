@@ -229,7 +229,7 @@ namespace aslam {
 
     double LinearSolver::getNumericFactorizationTime() const {
       if (_factor && _factor->QRnum)
-        return _cholmod.SPQR_factorize_time;
+        return _cholmod.SPQR_analyze_time;
       else
         return 0.0;
     }
@@ -344,7 +344,7 @@ namespace aslam {
       const int status = SuiteSparseQR_numeric<double>(qrTolerance, A_l,
         _factor, &_cholmod);
       const double t3 = Timestamp::now();
-      _cholmod.SPQR_factorize_time = t3 - t2;
+      _cholmod.SPQR_analyze_time = t3 - t2;
       cholmod_l_free_sparse(&A_l, &_cholmod);
       if (!status) {
         if (G_l)
@@ -489,7 +489,7 @@ namespace aslam {
       const int status = SuiteSparseQR_numeric<double>(qrTolerance, A_l,
         _factor, &_cholmod);
       const double t3 = Timestamp::now();
-      _cholmod.SPQR_factorize_time = t3 - t2;
+      _cholmod.SPQR_analyze_time = t3 - t2;
       cholmod_l_free_sparse(&A_l, &_cholmod);
       if (!status)
         throw InvalidOperationException("SuiteSparseQR_numeric failed",

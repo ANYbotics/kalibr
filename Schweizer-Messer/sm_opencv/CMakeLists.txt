@@ -1,38 +1,18 @@
-cmake_minimum_required(VERSION 2.8.3)
+cmake_minimum_required(VERSION 3.0.2)
 project(sm_opencv)
 
-add_compile_options(-w)
-add_definitions(-std=c++0x -D__STRICT_ANSI__)
+set(CMAKE_CXX_STANDARD 14)
 
-find_package(catkin REQUIRED
-  COMPONENTS
-    sm_common
-)
-
-find_package(OpenCV REQUIRED)
+find_package(catkin REQUIRED COMPONENTS sm_common)
 find_package(Boost REQUIRED COMPONENTS system)
 
 catkin_package(
-  INCLUDE_DIRS
-    include
-    ${catkin_INCLUDE_DIRS}
-  CATKIN_DEPENDS
-    sm_common
-  DEPENDS
-    Boost
-    OpenCV
+  INCLUDE_DIRS include  ${catkin_INCLUDE_DIRS}
+  CATKIN_DEPENDS sm_common
+  DEPENDS Boost
 )
+add_definitions(-D__STRICT_ANSI__)
 
-include_directories(
-  include
-  SYSTEM
-    ${catkin_INCLUDE_DIRS}
-    ${OpenCV_INCLUDE_DIRS}
-    ${Boost_INCLUDE_DIRS}
-)
-
-install(
-  DIRECTORY
-    include/${PROJECT_NAME}/
-  DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
+install(DIRECTORY include/
+  DESTINATION ${CATKIN_GLOBAL_INCLUDE_DESTINATION}
 )
