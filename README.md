@@ -1,3 +1,12 @@
+# NOTE: This is a fork from the official repository
+
+**The following changes have been applied on top of ETHZ-ASL main development branch:**
+
+* Removed catkin simple and fixed broken dependencies.
+* Removed forks of eigen, opencv and suitesparse from upstream branch.
+* Updated package to be compatible with suitesparse (2020-03-19).
+
+
 ![Kalibr](https://raw.githubusercontent.com/wiki/ethz-asl/kalibr/images/kalibr_small.png)
 
 [![ROS1 Ubuntu 20.04](https://github.com/ethz-asl/kalibr/actions/workflows/docker_2004_build.yaml/badge.svg)](https://github.com/ethz-asl/kalibr/actions/workflows/docker_2004_build.yaml)
