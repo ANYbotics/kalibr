@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 14)
 
 find_package(catkin REQUIRED COMPONENTS sm_common numpy_eigen sm_kinematics 
 sm_timing sm_logging sm_matrix_archive
-sm_property_tree python_module numpy_eigen
+sm_property_tree python_module
 )
 find_package(Eigen3 REQUIRED)
 
