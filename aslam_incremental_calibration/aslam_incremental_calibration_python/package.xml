@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package format="2">
   <name>aslam_incremental_calibration_python</name>
-  <version>0.0.20</version>
+  <version>0.0.21</version>
   <description>
     A C++-based library for providing python interface to the incremental
     calibration package.
