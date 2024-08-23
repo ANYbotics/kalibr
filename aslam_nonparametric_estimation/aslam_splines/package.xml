@@ -2,7 +2,7 @@
 <package format="2">
   <name>aslam_splines</name>
   <description>aslam_splines</description>
-  <version>0.0.22</version>
+  <version>0.0.23</version>
   <maintainer email="ynava@anybotics.com">Yoshua Nava</maintainer>
   <maintainer email="gzhou@anybotics.com">Guoxiang Zhou</maintainer>
   <author>Paul Furgale</author>

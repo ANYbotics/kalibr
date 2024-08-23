@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package format="2">
   <name>sm_boost</name>
-  <version>0.0.22</version>
+  <version>0.0.23</version>
   <description>sm_boost</description>
 
   <maintainer email="ynava@anybotics.com">Yoshua Nava</maintainer>
