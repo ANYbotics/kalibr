@@ -785,9 +785,20 @@ bool PinholeProjection<DISTORTION_T>::initializeIntrinsics(const std::vector<Gri
       std::cout << "Initializing focal length to " << input_guess << std::endl;
       f_guesses.push_back(input_guess);
     } else {
-      std::cout << "Initialization of focal length failed. You can enable"
-        << " manual input by setting 'KALIBR_MANUAL_FOCAL_LENGTH_INIT'." << std::endl;
-      return false;
+      // How to calculate the initial focal length for your sensor:
+      /* Input */
+      // Sensor Specs:
+      // 1. 1/2.9 inch: W X H= 4.98mm* 3.74mm
+      // 2. Focal Length is:  1.93mm
+      // Image Resolution: The image resolution is W X H = 1440, 1080
+      /* Initial focal length calculation */
+      // So th fx, fy can be calculated roughly: fx = 1.93 * 1440/4.98 = 558, fy = 1.93 * 1080/3.74=557
+      // cx= 1440/2 = 720, cy=1080/2 = 540
+      // In summary, the calculated [fx,fy,cx,cy] = [558, 557, 720, 540]
+      // The averaged focal length is (558+557)/2 = 557.
+      std::cout << "Initialization of focal length failed. Using the predefined focal length 557 as initial guess"
+         << std::endl;
+      f_guesses.push_back(557);
     }
   }
   // Get the median of the guesses if available.
