@@ -5,7 +5,7 @@
   <description>
     A C++-based library for calibrating robot sensors.
   </description>
-  <maintainer email="ynava@anybotics.com">Yoshua Nava</maintainer>
+  <maintainer email="mgaertner@anybotics.com">Magnus Gaertner</maintainer>
   <maintainer email="gzhou@anybotics.com">Guoxiang Zhou</maintainer>
   <license>LGPLv3</license>
   <url type="website">https://github.com/ethz-asl/aslam_incremental_calibration</url>

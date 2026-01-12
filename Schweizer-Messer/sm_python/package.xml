@@ -4,12 +4,12 @@
   <version>0.0.25</version>
   <description>sm_python</description>
 
-  <maintainer email="ynava@anybotics.com">Yoshua Nava</maintainer>
+  <maintainer email="mgaertner@anybotics.com">Magnus Gaertner</maintainer>
   <maintainer email="gzhou@anybotics.com">Guoxiang Zhou</maintainer>
   <license>New BSD</license>
   <buildtool_depend>catkin</buildtool_depend>
 <!--   <build_depend>cmake_clang_tools</build_depend> -->
-  
+
   <depend>cmake_modules</depend>
   <depend>eigen</depend>
   <depend>python3-matplotlib</depend>

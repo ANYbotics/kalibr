@@ -3,7 +3,7 @@
   <name>aslam_splines_python</name>
   <version>0.0.25</version>
   <description>aslam_splines_python</description>
-  <maintainer email="ynava@anybotics.com">Yoshua Nava</maintainer>
+  <maintainer email="mgaertner@anybotics.com">Magnus Gaertner</maintainer>
   <maintainer email="gzhou@anybotics.com">Guoxiang Zhou</maintainer>
   <author>Paul Furgale</author>
   <license>New BSD</license>
