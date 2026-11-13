@@ -5,8 +5,7 @@
   <description>
      aslam_cameras
   </description>
-  <maintainer email="magostinucci@anybotics.com">Mathieu Agostinucci</maintainer>
-  <maintainer email="gzhou@anybotics.com">Guoxiang Zhou</maintainer>
+  <maintainer email="support@anybotics.com">ANYbotics</maintainer>
   <license>BSD</license>
 
   <buildtool_depend>catkin</buildtool_depend>
