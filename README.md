@@ -1,3 +1,6 @@
+> [!NOTE]
+> This repository is archived and no longer maintained. It is a snapshot of 13 Nov 2026.
+
 # NOTE: This is a fork from the official repository
 
 **The following changes have been applied on top of ETHZ-ASL main development branch:**
